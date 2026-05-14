@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { featuredProperties } from "@/lib/mock-data";
@@ -22,7 +24,7 @@ export default function FeaturedCollections() {
         </Link>
       </div>
       
-      <div className="relative group h-[600px] rounded-2xl overflow-hidden shadow-premium">
+      <Link href={`/properties/${property.slug}`} className="block relative group h-[600px] rounded-2xl overflow-hidden shadow-premium">
         <Image
           src={property.imageUrl}
           alt={property.title}
@@ -32,10 +34,16 @@ export default function FeaturedCollections() {
         />
         
         {/* Navigation Arrows */}
-        <button className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-nordic-dark hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+        <button 
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-nordic-dark hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+        >
           <span className="material-icons">chevron_left</span>
         </button>
-        <button className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-nordic-dark hover:bg-white transition-all opacity-0 group-hover:opacity-100">
+        <button 
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-nordic-dark hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+        >
           <span className="material-icons">chevron_right</span>
         </button>
         
@@ -85,7 +93,7 @@ export default function FeaturedCollections() {
             </button>
           </div>
         </div>
-      </div>
+      </Link>
     </section>
   );
 }

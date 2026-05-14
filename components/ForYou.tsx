@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 import { forYouProperties } from "@/lib/mock-data";
 
 export default function ForYou() {
@@ -14,9 +17,10 @@ export default function ForYou() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {forYouProperties.map((property) => (
-          <div
+          <Link
+            href={`/properties/${property.slug}`}
             key={property.id}
-            className="bg-white rounded-2xl overflow-hidden shadow-soft border border-nordic-dark/5 group cursor-pointer"
+            className="block bg-white rounded-2xl overflow-hidden shadow-soft border border-nordic-dark/5 group cursor-pointer"
           >
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
@@ -29,7 +33,10 @@ export default function ForYou() {
               <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-nordic-dark">
                 {property.tag}
               </div>
-              <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all shadow-sm">
+              <button 
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all shadow-sm z-10"
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              >
                 <span className="material-icons text-xl">favorite_border</span>
               </button>
             </div>
@@ -53,7 +60,7 @@ export default function ForYou() {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

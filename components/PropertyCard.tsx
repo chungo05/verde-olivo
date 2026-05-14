@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 import { Property } from "@/lib/mock-data";
 
 type PropertyCardProps = {
@@ -10,7 +13,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
   const tagBgClass = property.tagColor === "mosque" ? "bg-mosque/90" : "bg-nordic-dark/90";
 
   return (
-    <article className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col border border-nordic-dark/5 ${hiddenClass}`}>
+    <Link href={`/properties/${property.slug}`} className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col border border-nordic-dark/5 ${hiddenClass}`}>
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={property.imageUrl}
@@ -19,11 +22,14 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <button className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark">
+        <button 
+          className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark z-10"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+        >
           <span className="material-icons text-lg">favorite_border</span>
         </button>
         {property.tag && (
-          <div className={`absolute bottom-3 left-3 ${tagBgClass} text-white text-[9px] font-bold px-2 py-1 rounded uppercase tracking-wider`}>
+          <div className={`absolute bottom-3 left-3 ${tagBgClass} text-white text-[9px] font-bold px-2 py-1 rounded uppercase tracking-wider z-10`}>
             {property.tag}
           </div>
         )}
@@ -51,6 +57,6 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
