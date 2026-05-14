@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Verde Olivo - Plataforma Inmobiliaria
 
-## Getting Started
+Plataforma inmobiliaria moderna, optimizada para SEO y alto rendimiento, construida con Next.js y React. Diseñada para ofrecer una experiencia de usuario (UX) fluida y premium al buscar y visualizar propiedades.
 
-First, run the development server:
+## 🚀 Características Principales
+
+Siguiendo las mejores prácticas de la industria para aplicaciones *Real Estate*, este proyecto incluye:
+
+- **Rendimiento & SEO**: Arquitectura optimizada con SSG/SSR, imágenes de alta eficiencia (`next/image`) y metadatos dinámicos.
+- **Mapas Interactivos**: Integración de mapas diferidos usando Leaflet (`react-leaflet`) para ubicar propiedades sin bloquear el renderizado inicial.
+- **Galerías Inmersivas**: Visualización de propiedades mediante carruseles táctiles y adaptables a dispositivos móviles (Swiper.js).
+- **Diseño Premium UI/UX**: Interfaz moderna, limpia y completamente responsiva construida con Tailwind CSS.
+- **Arquitectura de Estado**: Filtros de búsqueda gestionados a través de la URL para facilitar la retención de estado y compartición de enlaces.
+
+## 💻 Stack Tecnológico
+
+- **Core**: [Next.js](https://nextjs.org/) (App Router) + [React](https://react.dev/)
+- **Estilos**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Mapas**: [Leaflet](https://leafletjs.com/) & [React-Leaflet](https://react-leaflet.js.org/)
+- **Slider/Carrusel**: [Swiper](https://swiperjs.com/)
+- **Lenguaje**: TypeScript
+
+## 📂 Estructura del Proyecto
+
+```text
+verde-olivo/
+├── app/               # Next.js App Router (Páginas, Layouts, Rutas)
+├── components/        # Componentes UI reutilizables y modulares
+├── lib/               # Utilidades, configuración y tipos compartidos
+├── public/            # Archivos estáticos (imágenes de propiedades, íconos)
+├── antigravity/       # Documentación interna y convenciones de equipo
+└── ...                # Configuraciones raíz (Tailwind, ESLint, TS)
+```
+
+## 🛠️ Desarrollo Local
+
+1. Instalar las dependencias del proyecto:
+
+```bash
+npm install
+# o yarn install / pnpm install
+```
+
+2. Configurar las variables de entorno (clonar plantilla):
+
+```bash
+cp .env.template .env.local
+```
+
+3. Iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación corriendo en local.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚢 Despliegue
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+El proyecto está preparado para ser desplegado fácilmente en plataformas como [Vercel](https://vercel.com/new). Para más información, revisa la [guía de despliegue de Next.js](https://nextjs.org/docs/app/building-your-application/deploying).
