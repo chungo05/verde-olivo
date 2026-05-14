@@ -16,7 +16,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
     <Link href={`/properties/${property.slug}`} className={`bg-white rounded-xl overflow-hidden shadow-card hover:shadow-soft transition-all duration-300 group cursor-pointer h-full flex flex-col border border-nordic-dark/5 ${hiddenClass}`}>
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src={property.imageUrl}
+          src={property.image_url[0]}
           alt={property.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

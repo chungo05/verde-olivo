@@ -24,7 +24,7 @@ export default function ForYou() {
           >
             <div className="relative aspect-[16/10] overflow-hidden">
               <Image
-                src={property.imageUrl}
+                src={property.image_url[0]}
                 alt={property.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

@@ -22,9 +22,8 @@ const customIcon = L.divIcon({
   popupAnchor: [0, -32],
 });
 
-export default function MapComponent({ location }: { location: string }) {
-  // Using a fixed coordinate for the demo
-  const position: [number, number] = [37.4419, -122.1430];
+export default function MapComponent({ location, latitude, longitude }: { location: string, latitude: number, longitude: number }) {
+  const position: [number, number] = [latitude, longitude];
 
   return (
     <div className="w-full h-full min-h-[300px] z-0 relative rounded-lg overflow-hidden">

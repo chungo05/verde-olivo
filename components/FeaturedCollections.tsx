@@ -26,7 +26,7 @@ export default function FeaturedCollections() {
       
       <Link href={`/properties/${property.slug}`} className="block relative group h-[600px] rounded-2xl overflow-hidden shadow-premium">
         <Image
-          src={property.imageUrl}
+          src={property.image_url[0]}
           alt={property.title}
           fill
           sizes="100vw"

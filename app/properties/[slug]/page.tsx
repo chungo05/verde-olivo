@@ -29,7 +29,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           
           {/* Gallery Column */}
           <div className="lg:col-span-8 space-y-4">
-            <PropertyGallery images={property.images && property.images.length > 0 ? property.images : [property.imageUrl]} />
+            <PropertyGallery images={property.image_url} />
           </div>
 
           {/* Sticky Sidebar Info */}
@@ -78,7 +78,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               </div>
 
               <div className="bg-white p-2 rounded-xl shadow-sm border border-mosque/5">
-                <Map location={property.location} />
+                <Map location={property.location} latitude={property.latitude} longitude={property.longitude} />
               </div>
             </div>
           </div>

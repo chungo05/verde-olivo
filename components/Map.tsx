@@ -11,6 +11,6 @@ const MapComponent = dynamic(() => import("./MapComponent"), {
   ) 
 });
 
-export default function Map({ location }: { location: string }) {
-  return <MapComponent location={location} />;
+export default function Map({ location, latitude, longitude }: { location: string, latitude: number, longitude: number }) {
+  return <MapComponent location={location} latitude={latitude} longitude={longitude} />;
 }
