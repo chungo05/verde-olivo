@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -8,6 +9,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function PropertyGallery({ images }: { images: string[] }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <div className="w-full">
       {/* Mobile/Tablet Gallery with Swiper */}
@@ -34,7 +37,7 @@ export default function PropertyGallery({ images }: { images: string[] }) {
       <div className="hidden lg:block space-y-4">
         <div className="relative aspect-[16/10] overflow-hidden rounded-xl shadow-sm group">
           <Image
-            src={images[0]}
+            src={images[selectedIndex]}
             alt="Main property image"
             fill
             priority
@@ -52,8 +55,12 @@ export default function PropertyGallery({ images }: { images: string[] }) {
         
         {images.length > 1 && (
           <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x">
-            {images.slice(1).map((img, idx) => (
-              <div key={idx} className={`flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-opacity ${idx === 0 ? 'ring-2 ring-mosque ring-offset-2 ring-offset-background-light' : 'opacity-70 hover:opacity-100'}`}>
+            {images.map((img, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => setSelectedIndex(idx)}
+                className={`flex-none w-48 aspect-[4/3] rounded-lg overflow-hidden cursor-pointer snap-start transition-all ${idx === selectedIndex ? 'ring-2 ring-mosque ring-offset-2 ring-offset-background-light opacity-100' : 'opacity-60 hover:opacity-100'}`}
+              >
                 <div className="relative w-full h-full">
                   <Image src={img} alt={`Thumbnail ${idx + 1}`} fill className="object-cover" />
                 </div>
