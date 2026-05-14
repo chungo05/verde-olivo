@@ -37,8 +37,8 @@ verde-olivo/
 1. Instalar las dependencias del proyecto:
 
 ```bash
-npm install
-# o yarn install / pnpm install
+pnpm install
+# o yarn install / npm install
 ```
 
 2. Configurar las variables de entorno (clonar plantilla):
