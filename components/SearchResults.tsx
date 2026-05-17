@@ -5,8 +5,10 @@ import Link from "next/link";
 import { getAllProperties, Property } from "@/lib/mock-data";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import { useTranslation } from "./I18nProvider";
 
 export default function SearchResults() {
+  const { dict: t } = useTranslation();
   const searchParams = useSearchParams();
   const query = searchParams.get("q")?.toLowerCase() || "";
   const type = searchParams.get("type") || "All";
@@ -85,9 +87,9 @@ export default function SearchResults() {
     <section className="mb-24">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h2 className="text-3xl font-light text-nordic-dark">Search Results</h2>
+          <h2 className="text-3xl font-light text-nordic-dark">{t.searchResults.title}</h2>
           <p className="text-nordic-muted mt-2 text-base">
-            {filteredProperties.length} {filteredProperties.length === 1 ? "property" : "properties"} found.
+            {filteredProperties.length} {filteredProperties.length === 1 ? t.searchResults.propertyFound : t.searchResults.propertiesFound}
           </p>
         </div>
       </div>
@@ -95,8 +97,8 @@ export default function SearchResults() {
       {filteredProperties.length === 0 ? (
         <div className="text-center py-20 bg-nordic-dark/5 rounded-2xl border border-nordic-dark/10">
           <span className="material-icons text-5xl text-nordic-muted mb-4 block">search_off</span>
-          <h3 className="text-xl font-medium text-nordic-dark mb-2">No properties found</h3>
-          <p className="text-nordic-muted">Try adjusting your filters or search query.</p>
+          <h3 className="text-xl font-medium text-nordic-dark mb-2">{t.searchResults.noPropertiesFound}</h3>
+          <p className="text-nordic-muted">{t.searchResults.tryAdjusting}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -136,10 +138,10 @@ export default function SearchResults() {
                 </p>
                 <div className="flex items-center gap-6 pt-6 border-t border-nordic-dark/5">
                   <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                    <span className="material-icons text-mosque">king_bed</span> {property.beds} Beds
+                    <span className="material-icons text-mosque">king_bed</span> {property.beds}
                   </div>
                   <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                    <span className="material-icons text-mosque">bathtub</span> {property.baths} Baths
+                    <span className="material-icons text-mosque">bathtub</span> {property.baths}
                   </div>
                   <div className="flex items-center gap-2 text-nordic-dark font-medium">
                     <span className="material-icons text-mosque">square_foot</span> {property.area}

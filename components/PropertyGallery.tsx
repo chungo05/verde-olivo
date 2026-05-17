@@ -7,8 +7,10 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useTranslation } from "./I18nProvider";
 
 export default function PropertyGallery({ images }: { images: string[] }) {
+  const { dict: t } = useTranslation();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -44,12 +46,12 @@ export default function PropertyGallery({ images }: { images: string[] }) {
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute top-4 left-4 flex gap-2">
-            <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">Premium</span>
-            <span className="bg-white/90 backdrop-blur text-nordic-dark text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">New</span>
+            <span className="bg-mosque text-white text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{t.propertyGallery.premium}</span>
+            <span className="bg-white/90 backdrop-blur text-nordic-dark text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{t.propertyGallery.new}</span>
           </div>
           <button className="absolute bottom-4 right-4 bg-white/90 hover:bg-white text-nordic-dark px-4 py-2 rounded-lg text-sm font-medium shadow-lg backdrop-blur transition-all flex items-center gap-2">
             <span className="material-icons text-sm">grid_view</span>
-            View All Photos
+            {t.propertyGallery.viewAllPhotos}
           </button>
         </div>
         

@@ -3,22 +3,30 @@
     "loading": "Cargando...",
     "search": "Buscar",
     "filters": "Filtros",
-    "beds": "Hab.",
-    "baths": "Baños"
+    "beds": "Camas",
+    "baths": "Baños",
+    "area": "Área",
+    "mo": "/mes",
+    "all": "Todos",
+    "buy": "Comprar",
+    "rent": "Rentar",
+    "explore": "Explorar",
+    "viewAll": "Ver todos",
+    "readMore": "Leer más"
   },
   "nav": {
     "buy": "Comprar",
-    "rent": "Alquilar",
+    "rent": "Rentar",
     "sell": "Vender",
     "savedHomes": "Guardados"
   },
   "hero": {
     "titlePart1": "Encuentra Tu",
-    "titlePart2": "Santuario Perfecto",
-    "subtitle": "Descubre casas extraordinarias diseñadas para tu estilo de vida.",
+    "titlePart2": "Santuario",
+    "subtitle": "Descubre hogares extraordinarios diseñados para tu estilo de vida.",
     "searchPlaceholder": "Buscar ubicación...",
     "type": "Tipo",
-    "allTypes": "Todos",
+    "allTypes": "Todos los Tipos",
     "house": "Casa",
     "apartment": "Departamento",
     "villa": "Villa",
@@ -29,12 +37,81 @@
     "title": "Para Ti",
     "subtitle": "Recomendaciones personalizadas basadas en tus preferencias."
   },
-  "filters": {
-    "clearFilters": "Limpiar Filtros",
-    "applyFilters": "Aplicar Filtros",
-    "priceRange": "Rango de Precio",
+  "featuredCollections": {
+    "title": "Colecciones Destacadas",
+    "subtitle": "Propiedades selectas para el ojo exigente."
+  },
+  "newInMarket": {
+    "title": "Nuevo en el Mercado",
+    "subtitle": "Nuevas oportunidades añadidas esta semana.",
+    "loadMore": "Cargar más propiedades"
+  },
+  "searchResults": {
+    "title": "Resultados de Búsqueda",
+    "propertiesFound": "propiedades encontradas.",
+    "propertyFound": "propiedad encontrada.",
+    "noPropertiesFound": "No se encontraron propiedades",
+    "tryAdjusting": "Intenta ajustar tus filtros o la consulta de búsqueda."
+  },
+  "propertyGallery": {
+    "premium": "Premium",
+    "new": "Nuevo",
+    "viewAllPhotos": "Ver Todas las Fotos"
+  },
+  "propertyDetails": {
+    "topRatedAgent": "Agente Destacado",
+    "scheduleVisit": "Agendar Visita",
+    "contactAgent": "Contactar Agente",
+    "propertyFeatures": "Características de la Propiedad",
     "bedrooms": "Habitaciones",
     "bathrooms": "Baños",
-    "amenities": "Comodidades"
+    "garage": "Garaje",
+    "aboutThisHome": "Acerca de este hogar",
+    "amenities": "Comodidades",
+    "estimatedPayment": "Pago Estimado",
+    "startingFrom": "Desde",
+    "withDown": "con 20% de enganche",
+    "calculateMortgage": "Calcular Hipoteca",
+    "allRightsReserved": "© 2026 LuxeEstate Inc. Todos los derechos reservados.",
+    "amenitiesList": {
+      "smartHome": "Sistema de Casa Inteligente",
+      "pool": "Piscina",
+      "ac": "Calefacción y Aire Central",
+      "ev": "Carga de Vehículo Eléctrico",
+      "gym": "Gimnasio Privado",
+      "wineCellar": "Cava de Vinos"
+    }
+  },
+  "filters": {
+    "title": "Filtros",
+    "clearFilters": "Limpiar todos los filtros",
+    "applyFilters": "Aplicar Filtros",
+    "location": "Ubicación",
+    "locationPlaceholder": "Ciudad, vecindario o dirección",
+    "priceRange": "Rango de Precio",
+    "minPrice": "Precio Mín",
+    "maxPrice": "Precio Máx",
+    "any": "Cualquiera",
+    "propertyType": "Tipo de Propiedad",
+    "anyType": "Cualquier Tipo",
+    "house": "Casa",
+    "apartment": "Departamento",
+    "condo": "Condominio",
+    "townhouse": "Casa Adosada",
+    "villa": "Villa",
+    "penthouse": "Penthouse",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "amenitiesAndFeatures": "Comodidades y Características",
+    "pool": "Piscina",
+    "gym": "Gimnasio",
+    "parking": "Estacionamiento",
+    "ac": "Aire Acondicionado",
+    "wifi": "Wifi de alta velocidad",
+    "patio": "Patio / Terraza"
+  },
+  "search": {
+    "loadingSearch": "Cargando búsqueda...",
+    "loadingResults": "Cargando resultados..."
   }
 }

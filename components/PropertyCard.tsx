@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/lib/mock-data";
+import { useTranslation } from "./I18nProvider";
 
 type PropertyCardProps = {
   property: Property;
@@ -10,6 +11,7 @@ type PropertyCardProps = {
 };
 
 export default function PropertyCard({ property, hiddenClass = "" }: PropertyCardProps) {
+  const { dict: t } = useTranslation();
   const tagBgClass = property.tagColor === "mosque" ? "bg-mosque/90" : "bg-nordic-dark/90";
 
   return (
@@ -38,7 +40,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
         <div className="flex justify-between items-baseline mb-2">
           <h3 className="font-bold text-lg text-nordic-dark">
             {property.price}
-            {property.isRent && <span className="text-sm font-normal text-nordic-muted">/mo</span>}
+            {property.isRent && <span className="text-sm font-normal text-nordic-muted">{t.common.mo}</span>}
           </h3>
         </div>
         <h4 className="text-nordic-dark font-medium truncate mb-1">

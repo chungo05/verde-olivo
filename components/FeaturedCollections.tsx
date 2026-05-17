@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { featuredProperties } from "@/lib/mock-data";
+import { useTranslation } from "./I18nProvider";
 
 export default function FeaturedCollections() {
+  const { dict: t } = useTranslation();
   const property = featuredProperties[0];
   
   if (!property) return null;
@@ -13,14 +15,14 @@ export default function FeaturedCollections() {
     <section className="mb-24">
       <div className="flex items-end justify-between mb-10">
         <div>
-          <h2 className="text-3xl font-light text-nordic-dark">Featured Collections</h2>
-          <p className="text-nordic-muted mt-2 text-base">Curated properties for the discerning eye.</p>
+          <h2 className="text-3xl font-light text-nordic-dark">{t.featuredCollections.title}</h2>
+          <p className="text-nordic-muted mt-2 text-base">{t.featuredCollections.subtitle}</p>
         </div>
         <Link
           href="#"
           className="hidden sm:flex items-center gap-1 text-sm font-semibold text-mosque hover:opacity-70 transition-opacity"
         >
-          View all <span className="material-icons text-sm">arrow_forward</span>
+          {t.common.viewAll} <span className="material-icons text-sm">arrow_forward</span>
         </Link>
       </div>
       
@@ -62,7 +64,7 @@ export default function FeaturedCollections() {
           
           <div className="flex items-center gap-10 mb-8">
             <div className="flex flex-col">
-              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">Beds</span>
+              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">{t.common.beds}</span>
               <div className="flex items-center gap-2">
                 <span className="material-icons text-mosque text-lg">king_bed</span>
                 <span className="text-xl font-medium text-nordic-dark">{property.beds}</span>
@@ -70,7 +72,7 @@ export default function FeaturedCollections() {
             </div>
             <div className="w-px h-8 bg-nordic-dark/10"></div>
             <div className="flex flex-col">
-              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">Baths</span>
+              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">{t.common.baths}</span>
               <div className="flex items-center gap-2">
                 <span className="material-icons text-mosque text-lg">bathtub</span>
                 <span className="text-xl font-medium text-nordic-dark">{property.baths}</span>
@@ -78,7 +80,7 @@ export default function FeaturedCollections() {
             </div>
             <div className="w-px h-8 bg-nordic-dark/10"></div>
             <div className="flex flex-col">
-              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">Area</span>
+              <span className="text-[10px] text-nordic-muted uppercase font-bold tracking-widest mb-1">{t.common.area}</span>
               <div className="flex items-center gap-2">
                 <span className="material-icons text-mosque text-lg">square_foot</span>
                 <span className="text-xl font-medium text-nordic-dark">{property.area.split(" ")[0]} <span className="text-xs">{property.area.split(" ")[1] || "m²"}</span></span>
@@ -89,7 +91,7 @@ export default function FeaturedCollections() {
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-nordic-dark">{property.price}</span>
             <button className="px-6 py-3 bg-mosque text-white rounded-xl font-semibold text-sm hover:bg-mosque/90 transition-all uppercase tracking-wider">
-              Explore
+              {t.common.explore}
             </button>
           </div>
         </div>

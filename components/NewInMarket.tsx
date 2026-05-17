@@ -1,27 +1,31 @@
+"use client";
+
 import { newMarketProperties } from "@/lib/mock-data";
 import PropertyCard from "./PropertyCard";
+import { useTranslation } from "./I18nProvider";
 
 export default function NewInMarket() {
+  const { dict: t } = useTranslation();
   return (
     <section>
       <div className="flex items-end justify-between mb-8">
         <div>
           <h2 className="text-2xl font-light text-nordic-dark">
-            New in Market
+            {t.newInMarket.title}
           </h2>
           <p className="text-nordic-muted mt-1 text-sm">
-            Fresh opportunities added this week.
+            {t.newInMarket.subtitle}
           </p>
         </div>
         <div className="hidden md:flex bg-white p-1 rounded-lg border border-nordic-dark/5">
           <button className="px-4 py-1.5 rounded-md text-sm font-semibold bg-nordic-dark text-white shadow-sm">
-            All
+            {t.common.all}
           </button>
           <button className="px-4 py-1.5 rounded-md text-sm font-semibold text-nordic-muted hover:text-nordic-dark">
-            Buy
+            {t.common.buy}
           </button>
           <button className="px-4 py-1.5 rounded-md text-sm font-semibold text-nordic-muted hover:text-nordic-dark">
-            Rent
+            {t.common.rent}
           </button>
         </div>
       </div>
@@ -45,7 +49,7 @@ export default function NewInMarket() {
       </div>
       <div className="mt-12 text-center">
         <button className="px-8 py-3 bg-white border border-nordic-dark/10 hover:border-mosque hover:text-mosque text-nordic-dark font-semibold rounded-lg transition-all hover:shadow-md uppercase tracking-wider text-xs">
-          Load more properties
+          {t.newInMarket.loadMore}
         </button>
       </div>
     </section>

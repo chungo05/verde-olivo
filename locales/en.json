@@ -4,7 +4,15 @@
     "search": "Search",
     "filters": "Filters",
     "beds": "Beds",
-    "baths": "Baths"
+    "baths": "Baths",
+    "area": "Area",
+    "mo": "/mo",
+    "all": "All",
+    "buy": "Buy",
+    "rent": "Rent",
+    "explore": "Explore",
+    "viewAll": "View all",
+    "readMore": "Read more"
   },
   "nav": {
     "buy": "Buy",
@@ -29,12 +37,81 @@
     "title": "For You",
     "subtitle": "Personalized recommendations based on your preferences."
   },
-  "filters": {
-    "clearFilters": "Clear Filters",
-    "applyFilters": "Apply Filters",
-    "priceRange": "Price Range",
+  "featuredCollections": {
+    "title": "Featured Collections",
+    "subtitle": "Curated properties for the discerning eye."
+  },
+  "newInMarket": {
+    "title": "New in Market",
+    "subtitle": "Fresh opportunities added this week.",
+    "loadMore": "Load more properties"
+  },
+  "searchResults": {
+    "title": "Search Results",
+    "propertiesFound": "properties found.",
+    "propertyFound": "property found.",
+    "noPropertiesFound": "No properties found",
+    "tryAdjusting": "Try adjusting your filters or search query."
+  },
+  "propertyGallery": {
+    "premium": "Premium",
+    "new": "New",
+    "viewAllPhotos": "View All Photos"
+  },
+  "propertyDetails": {
+    "topRatedAgent": "Top Rated Agent",
+    "scheduleVisit": "Schedule Visit",
+    "contactAgent": "Contact Agent",
+    "propertyFeatures": "Property Features",
     "bedrooms": "Bedrooms",
     "bathrooms": "Bathrooms",
-    "amenities": "Amenities"
+    "garage": "Garage",
+    "aboutThisHome": "About this home",
+    "amenities": "Amenities",
+    "estimatedPayment": "Estimated Payment",
+    "startingFrom": "Starting from",
+    "withDown": "with 20% down",
+    "calculateMortgage": "Calculate Mortgage",
+    "allRightsReserved": "© 2026 LuxeEstate Inc. All rights reserved.",
+    "amenitiesList": {
+      "smartHome": "Smart Home System",
+      "pool": "Swimming Pool",
+      "ac": "Central Heating & Cooling",
+      "ev": "Electric Vehicle Charging",
+      "gym": "Private Gym",
+      "wineCellar": "Wine Cellar"
+    }
+  },
+  "filters": {
+    "title": "Filters",
+    "clearFilters": "Clear all filters",
+    "applyFilters": "Apply Filters",
+    "location": "Location",
+    "locationPlaceholder": "City, neighborhood, or address",
+    "priceRange": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "any": "Any",
+    "propertyType": "Property Type",
+    "anyType": "Any Type",
+    "house": "House",
+    "apartment": "Apartment",
+    "condo": "Condo",
+    "townhouse": "Townhouse",
+    "villa": "Villa",
+    "penthouse": "Penthouse",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "amenitiesAndFeatures": "Amenities & Features",
+    "pool": "Swimming Pool",
+    "gym": "Gym",
+    "parking": "Parking",
+    "ac": "Air Conditioning",
+    "wifi": "High-speed Wifi",
+    "patio": "Patio / Terrace"
+  },
+  "search": {
+    "loadingSearch": "Loading search...",
+    "loadingResults": "Loading results..."
   }
 }

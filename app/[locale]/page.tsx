@@ -5,12 +5,19 @@ import FeaturedCollections from "@/components/FeaturedCollections";
 import NewInMarket from "@/components/NewInMarket";
 import SearchResults from "@/components/SearchResults";
 import { Suspense } from "react";
+import { getDictionary } from "@/lib/dictionary";
+import { Locale } from "@/lib/i18n";
 
 export default async function Home({
+  params,
   searchParams,
 }: {
+  params: Promise<{ locale: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale as Locale;
+  const dict = await getDictionary(locale);
   const resolvedSearchParams = await searchParams;
   const filterKeys = ["q", "type", "location", "minPrice", "maxPrice", "beds", "baths", "amenities"];
   const isFiltering = filterKeys.some(key => resolvedSearchParams[key] !== undefined);
@@ -19,11 +26,11 @@ export default async function Home({
     <>
       <NavBar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <Suspense fallback={<div className="py-12 text-center text-nordic-muted">Loading search...</div>}>
+        <Suspense fallback={<div className="py-12 text-center text-nordic-muted">{dict.search.loadingSearch}</div>}>
           <HeroSection />
         </Suspense>
         {isFiltering ? (
-          <Suspense fallback={<div className="py-12 text-center text-nordic-muted">Loading results...</div>}>
+          <Suspense fallback={<div className="py-12 text-center text-nordic-muted">{dict.search.loadingResults}</div>}>
             <SearchResults />
           </Suspense>
         ) : (

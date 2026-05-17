@@ -4,7 +4,15 @@
     "search": "검색",
     "filters": "필터",
     "beds": "침실",
-    "baths": "욕실"
+    "baths": "욕실",
+    "area": "면적",
+    "mo": "/월",
+    "all": "전체",
+    "buy": "구매",
+    "rent": "임대",
+    "explore": "둘러보기",
+    "viewAll": "모두 보기",
+    "readMore": "더 보기"
   },
   "nav": {
     "buy": "구매",
@@ -29,12 +37,81 @@
     "title": "추천",
     "subtitle": "귀하의 선호도에 따른 맞춤형 추천입니다."
   },
-  "filters": {
-    "clearFilters": "필터 지우기",
-    "applyFilters": "필터 적용",
-    "priceRange": "가격대",
+  "featuredCollections": {
+    "title": "주요 컬렉션",
+    "subtitle": "안목 있는 분들을 위해 엄선된 매물입니다."
+  },
+  "newInMarket": {
+    "title": "신규 매물",
+    "subtitle": "이번 주에 추가된 새로운 기회입니다.",
+    "loadMore": "더 많은 매물 불러오기"
+  },
+  "searchResults": {
+    "title": "검색 결과",
+    "propertiesFound": "개의 매물을 찾았습니다.",
+    "propertyFound": "개의 매물을 찾았습니다.",
+    "noPropertiesFound": "매물을 찾을 수 없습니다",
+    "tryAdjusting": "필터나 검색어를 조정해 보세요."
+  },
+  "propertyGallery": {
+    "premium": "프리미엄",
+    "new": "신규",
+    "viewAllPhotos": "모든 사진 보기"
+  },
+  "propertyDetails": {
+    "topRatedAgent": "최우수 에이전트",
+    "scheduleVisit": "방문 예약",
+    "contactAgent": "에이전트 문의",
+    "propertyFeatures": "매물 특징",
     "bedrooms": "침실",
     "bathrooms": "욕실",
-    "amenities": "편의 시설"
+    "garage": "차고",
+    "aboutThisHome": "이 집에 대하여",
+    "amenities": "편의 시설",
+    "estimatedPayment": "예상 납부액",
+    "startingFrom": "시작가",
+    "withDown": "선수금 20% 기준",
+    "calculateMortgage": "모기지 계산",
+    "allRightsReserved": "© 2026 LuxeEstate Inc. 모든 권리 보유.",
+    "amenitiesList": {
+      "smartHome": "스마트 홈 시스템",
+      "pool": "수영장",
+      "ac": "중앙 냉난방",
+      "ev": "전기차 충전",
+      "gym": "개인 체육관",
+      "wineCellar": "와인 셀러"
+    }
+  },
+  "filters": {
+    "title": "필터",
+    "clearFilters": "모든 필터 지우기",
+    "applyFilters": "필터 적용",
+    "location": "위치",
+    "locationPlaceholder": "도시, 동네 또는 주소",
+    "priceRange": "가격대",
+    "minPrice": "최소 가격",
+    "maxPrice": "최대 가격",
+    "any": "상관없음",
+    "propertyType": "매물 유형",
+    "anyType": "모든 유형",
+    "house": "주택",
+    "apartment": "아파트",
+    "condo": "콘도",
+    "townhouse": "타운하우스",
+    "villa": "빌라",
+    "penthouse": "펜트하우스",
+    "bedrooms": "침실",
+    "bathrooms": "욕실",
+    "amenitiesAndFeatures": "편의 시설 및 특징",
+    "pool": "수영장",
+    "gym": "체육관",
+    "parking": "주차장",
+    "ac": "에어컨",
+    "wifi": "고속 와이파이",
+    "patio": "파티오 / 테라스"
+  },
+  "search": {
+    "loadingSearch": "검색 중...",
+    "loadingResults": "결과 로딩 중..."
   }
 }
