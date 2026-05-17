@@ -5,7 +5,7 @@ import { forYouProperties, featuredProperties, newMarketProperties } from "@/lib
 import Map from "@/components/Map";
 import PropertyGallery from "@/components/PropertyGallery";
 import { getDictionary } from "@/lib/dictionary";
-import { Locale } from "@/lib/i18n";
+import { Locale, formatArea } from "@/lib/i18n";
 
 export function generateStaticParams() {
   const allProperties = [...forYouProperties, ...featuredProperties, ...newMarketProperties];
@@ -93,7 +93,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
                   <span className="material-icons text-mosque text-2xl mb-2">square_foot</span>
-                  <span className="text-xl font-bold text-nordic-dark">{property.area}</span>
+                  <span className="text-xl font-bold text-nordic-dark">{formatArea(property.area, locale as Locale)}</span>
                   <span className="text-xs uppercase tracking-wider text-nordic-muted">{dict.common.area}</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-4 bg-mosque/5 rounded-lg border border-mosque/10">
@@ -118,10 +118,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               <h2 className="text-lg font-semibold mb-4 text-nordic-dark">{dict.propertyDetails.aboutThisHome}</h2>
               <div className="prose prose-slate max-w-none text-nordic-muted leading-relaxed">
                 <p className="mb-4">
-                  Experience modern living in this stunning property located at {property.location}. Designed with an emphasis on comfort and natural light, the residence features high-quality finishes and an open-concept layout.
+                  {dict.propertyDetails.description1.replace('{{location}}', property.location)}
                 </p>
                 <p>
-                  The kitchen is equipped with top-of-the-line appliances, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath.
+                  {dict.propertyDetails.description2}
                 </p>
               </div>
               <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">

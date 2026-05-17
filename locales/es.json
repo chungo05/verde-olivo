@@ -67,6 +67,8 @@
     "bathrooms": "Baños",
     "garage": "Garaje",
     "aboutThisHome": "Acerca de este hogar",
+    "description1": "Experimenta la vida moderna en esta impresionante propiedad ubicada en {{location}}. Diseñada con énfasis en la comodidad y la luz natural, la residencia cuenta con acabados de alta calidad y un diseño de concepto abierto.",
+    "description2": "La cocina está equipada con electrodomésticos de primera línea, perfecta para los entusiastas culinarios. Retírate a la suite principal, un santuario de relajación con un baño inspirado en un spa.",
     "amenities": "Comodidades",
     "estimatedPayment": "Pago Estimado",
     "startingFrom": "Desde",

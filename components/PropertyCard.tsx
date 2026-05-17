@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/lib/mock-data";
 import { useTranslation } from "./I18nProvider";
+import { formatArea } from "@/lib/i18n";
 
 type PropertyCardProps = {
   property: Property;
@@ -11,7 +12,7 @@ type PropertyCardProps = {
 };
 
 export default function PropertyCard({ property, hiddenClass = "" }: PropertyCardProps) {
-  const { dict: t } = useTranslation();
+  const { dict: t, locale } = useTranslation();
   const tagBgClass = property.tagColor === "mosque" ? "bg-mosque/90" : "bg-nordic-dark/90";
 
   return (
@@ -55,7 +56,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
             <span className="material-icons text-sm text-mosque/80">bathtub</span> {property.baths}
           </div>
           <div className="flex items-center gap-1 text-nordic-muted text-xs">
-            <span className="material-icons text-sm text-mosque/80">square_foot</span> {property.area}
+            <span className="material-icons text-sm text-mosque/80">square_foot</span> {formatArea(property.area, locale)}
           </div>
         </div>
       </div>

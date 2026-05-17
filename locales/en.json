@@ -67,6 +67,8 @@
     "bathrooms": "Bathrooms",
     "garage": "Garage",
     "aboutThisHome": "About this home",
+    "description1": "Experience modern living in this stunning property located at {{location}}. Designed with an emphasis on comfort and natural light, the residence features high-quality finishes and an open-concept layout.",
+    "description2": "The kitchen is equipped with top-of-the-line appliances, perfect for culinary enthusiasts. Retreat to the primary suite, a sanctuary of relaxation with a spa-inspired bath.",
     "amenities": "Amenities",
     "estimatedPayment": "Estimated Payment",
     "startingFrom": "Starting from",
