@@ -617,3 +617,7 @@ export const newMarketProperties: Property[] = [
     tagColor: "nordic"
   }
 ];
+
+export const getAllProperties = (): Property[] => {
+  return [...forYouProperties, ...featuredProperties, ...newMarketProperties];
+};

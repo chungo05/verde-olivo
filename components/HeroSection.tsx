@@ -2,9 +2,43 @@
 
 import { useState } from "react";
 import FilterModal from "./FilterModal";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function HeroSection() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+
+  const currentType = searchParams.get("type") || "All";
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams(searchParams.toString());
+    if (searchQuery) {
+      params.set("q", searchQuery);
+    } else {
+      params.delete("q");
+    }
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const createQueryString = (name: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value === "All") {
+      params.delete(name);
+    } else {
+      params.set(name, value);
+    }
+    return params.toString();
+  };
+
+  const chipBaseClasses = "whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-transform hover:-translate-y-0.5 shadow-sm";
+  const chipActiveClasses = "bg-nordic-dark text-white shadow-lg shadow-nordic-dark/10";
+  const chipInactiveClasses = "bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 hover:bg-mosque/5 transition-all";
 
   return (
     <section className="py-12 md:py-16">
@@ -17,7 +51,7 @@ export default function HeroSection() {
           </span>
           .
         </h1>
-        <div className="relative group max-w-2xl mx-auto">
+        <form onSubmit={handleSearch} className="relative group max-w-2xl mx-auto">
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
             <span className="material-icons text-nordic-muted text-2xl group-focus-within:text-mosque transition-colors">
               search
@@ -27,27 +61,23 @@ export default function HeroSection() {
             className="block w-full pl-12 pr-4 py-4 rounded-xl border-none bg-white text-nordic-dark shadow-soft placeholder-nordic-muted/60 focus:ring-2 focus:ring-mosque focus:bg-white transition-all text-lg"
             placeholder="Search by city, neighborhood, or address..."
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-semibold rounded-lg transition-all flex items-center justify-center">
+          <button type="submit" className="absolute inset-y-2 right-2 px-6 bg-mosque hover:bg-mosque/90 text-white font-semibold rounded-lg transition-all flex items-center justify-center">
             Search
           </button>
-        </div>
+        </form>
         <div className="flex items-center justify-center gap-3 overflow-x-auto hide-scroll py-2 px-4 -mx-4">
-          <button className="whitespace-nowrap px-5 py-2 rounded-full bg-nordic-dark text-white text-sm font-medium shadow-lg shadow-nordic-dark/10 transition-transform hover:-translate-y-0.5">
-            All
-          </button>
-          <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-            House
-          </button>
-          <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-            Apartment
-          </button>
-          <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-            Villa
-          </button>
-          <button className="whitespace-nowrap px-5 py-2 rounded-full bg-white border border-nordic-dark/5 text-nordic-muted hover:text-nordic-dark hover:border-mosque/50 text-sm font-medium transition-all hover:bg-mosque/5">
-            Penthouse
-          </button>
+          {["All", "House", "Apartment", "Villa", "Penthouse"].map((type) => (
+            <Link
+              key={type}
+              href={`${pathname}?${createQueryString("type", type)}`}
+              className={`${chipBaseClasses} ${currentType === type ? chipActiveClasses : chipInactiveClasses}`}
+            >
+              {type}
+            </Link>
+          ))}
           <div className="w-px h-6 bg-nordic-dark/10 mx-2"></div>
           <button 
             onClick={() => setIsFilterModalOpen(true)}
