@@ -1,0 +1,40 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "search": "Search",
+    "filters": "Filters",
+    "beds": "Beds",
+    "baths": "Baths"
+  },
+  "nav": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "sell": "Sell",
+    "savedHomes": "Saved Homes"
+  },
+  "hero": {
+    "titlePart1": "Find Your Perfect",
+    "titlePart2": "Sanctuary",
+    "subtitle": "Discover extraordinary homes designed for your lifestyle.",
+    "searchPlaceholder": "Search location...",
+    "type": "Type",
+    "allTypes": "All Types",
+    "house": "House",
+    "apartment": "Apartment",
+    "villa": "Villa",
+    "condo": "Condo",
+    "location": "Location"
+  },
+  "forYou": {
+    "title": "For You",
+    "subtitle": "Personalized recommendations based on your preferences."
+  },
+  "filters": {
+    "clearFilters": "Clear Filters",
+    "applyFilters": "Apply Filters",
+    "priceRange": "Price Range",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "amenities": "Amenities"
+  }
+}

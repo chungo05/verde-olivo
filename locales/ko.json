@@ -1,0 +1,40 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "search": "검색",
+    "filters": "필터",
+    "beds": "침실",
+    "baths": "욕실"
+  },
+  "nav": {
+    "buy": "구매",
+    "rent": "임대",
+    "sell": "판매",
+    "savedHomes": "저장된 집"
+  },
+  "hero": {
+    "titlePart1": "당신의 완벽한",
+    "titlePart2": "안식처를 찾으세요",
+    "subtitle": "당신의 라이프스타일에 맞게 디자인된 특별한 집을 발견하세요.",
+    "searchPlaceholder": "위치 검색...",
+    "type": "유형",
+    "allTypes": "모든 유형",
+    "house": "주택",
+    "apartment": "아파트",
+    "villa": "빌라",
+    "condo": "콘도",
+    "location": "위치"
+  },
+  "forYou": {
+    "title": "추천",
+    "subtitle": "귀하의 선호도에 따른 맞춤형 추천입니다."
+  },
+  "filters": {
+    "clearFilters": "필터 지우기",
+    "applyFilters": "필터 적용",
+    "priceRange": "가격대",
+    "bedrooms": "침실",
+    "bathrooms": "욕실",
+    "amenities": "편의 시설"
+  }
+}

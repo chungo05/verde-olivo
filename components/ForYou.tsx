@@ -3,22 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { forYouProperties } from "@/lib/mock-data";
+import { useTranslation } from "./I18nProvider";
 
 export default function ForYou() {
+  const { dict, locale } = useTranslation();
+
   return (
     <section className="mb-24">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h2 className="text-3xl font-light text-nordic-dark">For You</h2>
+          <h2 className="text-3xl font-light text-nordic-dark">{dict.forYou.title}</h2>
           <p className="text-nordic-muted mt-2 text-base">
-            Personalized recommendations based on your preferences.
+            {dict.forYou.subtitle}
           </p>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {forYouProperties.map((property) => (
           <Link
-            href={`/properties/${property.slug}`}
+            href={`/${locale}/properties/${property.slug}`}
             key={property.id}
             className="block bg-white rounded-2xl overflow-hidden shadow-soft border border-nordic-dark/5 group cursor-pointer"
           >
@@ -50,10 +53,10 @@ export default function ForYou() {
               </p>
               <div className="flex items-center gap-6 pt-6 border-t border-nordic-dark/5">
                 <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                  <span className="material-icons text-mosque">king_bed</span> {property.beds} Beds
+                  <span className="material-icons text-mosque">king_bed</span> {property.beds} {dict.common.beds}
                 </div>
                 <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                  <span className="material-icons text-mosque">bathtub</span> {property.baths} Baths
+                  <span className="material-icons text-mosque">bathtub</span> {property.baths} {dict.common.baths}
                 </div>
                 <div className="flex items-center gap-2 text-nordic-dark font-medium">
                   <span className="material-icons text-mosque">square_foot</span> {property.area}
@@ -66,3 +69,4 @@ export default function ForYou() {
     </section>
   );
 }
+

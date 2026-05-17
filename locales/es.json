@@ -1,0 +1,40 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filters": "Filtros",
+    "beds": "Hab.",
+    "baths": "Baños"
+  },
+  "nav": {
+    "buy": "Comprar",
+    "rent": "Alquilar",
+    "sell": "Vender",
+    "savedHomes": "Guardados"
+  },
+  "hero": {
+    "titlePart1": "Encuentra Tu",
+    "titlePart2": "Santuario Perfecto",
+    "subtitle": "Descubre casas extraordinarias diseñadas para tu estilo de vida.",
+    "searchPlaceholder": "Buscar ubicación...",
+    "type": "Tipo",
+    "allTypes": "Todos",
+    "house": "Casa",
+    "apartment": "Departamento",
+    "villa": "Villa",
+    "condo": "Condominio",
+    "location": "Ubicación"
+  },
+  "forYou": {
+    "title": "Para Ti",
+    "subtitle": "Recomendaciones personalizadas basadas en tus preferencias."
+  },
+  "filters": {
+    "clearFilters": "Limpiar Filtros",
+    "applyFilters": "Aplicar Filtros",
+    "priceRange": "Rango de Precio",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "amenities": "Comodidades"
+  }
+}
