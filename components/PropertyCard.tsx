@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/lib/mock-data";
 import { useTranslation } from "./I18nProvider";
-import { formatArea } from "@/lib/i18n";
+import { formatArea, translateTag } from "@/lib/i18n";
 
 type PropertyCardProps = {
   property: Property;
@@ -33,7 +33,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
         </button>
         {property.tag && (
           <div className={`absolute bottom-3 left-3 ${tagBgClass} text-white text-[9px] font-bold px-2 py-1 rounded uppercase tracking-wider z-10`}>
-            {property.tag}
+            {translateTag(property.tag, t)}
           </div>
         )}
       </div>

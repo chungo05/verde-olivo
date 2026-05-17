@@ -12,7 +12,14 @@
     "rent": "임대",
     "explore": "둘러보기",
     "viewAll": "모두 보기",
-    "readMore": "더 보기"
+    "readMore": "더 보기",
+    "tags": {
+      "topMatch": "최고의 선택",
+      "exclusive": "독점",
+      "featuredProperty": "✨ 추천 매물",
+      "forSale": "판매 중",
+      "forRent": "임대 중"
+    }
   },
   "nav": {
     "buy": "구매",

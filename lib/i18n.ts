@@ -30,3 +30,14 @@ export function formatArea(areaStr: string, locale: Locale): string {
   const unit = isSqft ? "sqft" : "m²";
   return `${num.toLocaleString(locale)} ${unit}`;
 }
+
+export function translateTag(tag: string, dict: any): string {
+  if (!tag) return tag;
+  const t = tag.toLowerCase();
+  if (t === "top match") return dict.common?.tags?.topMatch || tag;
+  if (t === "exclusive") return dict.common?.tags?.exclusive || tag;
+  if (t === "featured property") return dict.common?.tags?.featuredProperty || tag;
+  if (t === "for sale") return dict.common?.tags?.forSale || tag;
+  if (t === "for rent") return dict.common?.tags?.forRent || tag;
+  return tag;
+}

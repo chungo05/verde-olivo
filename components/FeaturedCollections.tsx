@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { featuredProperties } from "@/lib/mock-data";
 import { useTranslation } from "./I18nProvider";
+import { translateTag } from "@/lib/i18n";
 
 export default function FeaturedCollections() {
   const { dict: t } = useTranslation();
@@ -52,8 +53,7 @@ export default function FeaturedCollections() {
         {/* Transparent Information Overlay Card */}
         <div className="absolute bottom-8 left-8 right-8 md:right-auto md:w-[480px] bg-white/70 backdrop-blur-xl p-8 rounded-2xl border border-white/20 shadow-2xl">
           <div className="flex items-center gap-2 text-mosque mb-4">
-            <span className="material-symbols-outlined text-sm font-bold">auto_awesome</span>
-            <span className="text-xs font-bold uppercase tracking-[0.15em]">{property.tag}</span>
+            <span className="text-xs font-bold uppercase tracking-[0.15em]">{translateTag(property.tag, t)}</span>
           </div>
           <h3 className="text-4xl font-light text-nordic-dark mb-2 leading-tight">
             {property.title}

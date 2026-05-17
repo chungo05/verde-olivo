@@ -12,7 +12,14 @@
     "rent": "Rentar",
     "explore": "Explorar",
     "viewAll": "Ver todos",
-    "readMore": "Leer más"
+    "readMore": "Leer más",
+    "tags": {
+      "topMatch": "Mejor Opción",
+      "exclusive": "Exclusivo",
+      "featuredProperty": "✨ Propiedad Destacada",
+      "forSale": "En Venta",
+      "forRent": "En Renta"
+    }
   },
   "nav": {
     "buy": "Comprar",

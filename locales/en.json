@@ -12,7 +12,14 @@
     "rent": "Rent",
     "explore": "Explore",
     "viewAll": "View all",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "tags": {
+      "topMatch": "Top Match",
+      "exclusive": "Exclusive",
+      "featuredProperty": "✨ Featured Property",
+      "forSale": "For Sale",
+      "forRent": "For Rent"
+    }
   },
   "nav": {
     "buy": "Buy",

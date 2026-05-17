@@ -6,9 +6,10 @@ import { getAllProperties, Property } from "@/lib/mock-data";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "./I18nProvider";
+import { translateTag, formatArea } from "@/lib/i18n";
 
 export default function SearchResults() {
-  const { dict: t } = useTranslation();
+  const { dict: t, locale } = useTranslation();
   const searchParams = useSearchParams();
   const query = searchParams.get("q")?.toLowerCase() || "";
   const type = searchParams.get("type") || "All";
@@ -118,7 +119,7 @@ export default function SearchResults() {
                 />
                 {property.tag && (
                   <div className={`absolute top-4 left-4 ${property.tagColor === 'mosque' ? 'bg-mosque text-white' : 'bg-white/90 text-nordic-dark'} backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest`}>
-                    {property.tag}
+                    {translateTag(property.tag, t)}
                   </div>
                 )}
                 <button 
@@ -144,7 +145,7 @@ export default function SearchResults() {
                     <span className="material-icons text-mosque">bathtub</span> {property.baths}
                   </div>
                   <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                    <span className="material-icons text-mosque">square_foot</span> {property.area}
+                    <span className="material-icons text-mosque">square_foot</span> {formatArea(property.area, locale)}
                   </div>
                 </div>
               </div>

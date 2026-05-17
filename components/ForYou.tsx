@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { forYouProperties } from "@/lib/mock-data";
 import { useTranslation } from "./I18nProvider";
+import { translateTag, formatArea } from "@/lib/i18n";
 
 export default function ForYou() {
   const { dict, locale } = useTranslation();
@@ -34,7 +35,7 @@ export default function ForYou() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-nordic-dark">
-                {property.tag}
+                {translateTag(property.tag, dict)}
               </div>
               <button 
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all shadow-sm z-10"
@@ -59,7 +60,7 @@ export default function ForYou() {
                   <span className="material-icons text-mosque">bathtub</span> {property.baths} {dict.common.baths}
                 </div>
                 <div className="flex items-center gap-2 text-nordic-dark font-medium">
-                  <span className="material-icons text-mosque">square_foot</span> {property.area}
+                  <span className="material-icons text-mosque">square_foot</span> {formatArea(property.area, locale)}
                 </div>
               </div>
             </div>
