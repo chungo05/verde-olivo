@@ -12,7 +12,8 @@ export default async function Home({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const isFiltering = resolvedSearchParams.type !== undefined || resolvedSearchParams.q !== undefined;
+  const filterKeys = ["q", "type", "location", "minPrice", "maxPrice", "beds", "baths", "amenities"];
+  const isFiltering = filterKeys.some(key => resolvedSearchParams[key] !== undefined);
 
   return (
     <>
