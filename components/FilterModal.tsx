@@ -311,7 +311,7 @@ export default function FilterModal({ isOpen, onClose }: FilterModalProps) {
                         <span className={`material-icons text-lg ${isActive ? '' : 'text-gray-400 group-hover:text-gray-500'}`}>
                           {amenity.icon}
                         </span>
-                        {t.filters.amenitiesList[amenity.id as keyof typeof t.filters.amenitiesList]}
+                        {t.filters[amenity.id as keyof typeof t.filters]}
                       </div>
                       {isActive && (
                         <div className="absolute top-2 right-2 w-2 h-2 bg-mosque rounded-full opacity-100 transition-opacity"></div>
@@ -329,13 +329,13 @@ export default function FilterModal({ isOpen, onClose }: FilterModalProps) {
               onClick={handleClearFilters}
               className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors underline decoration-gray-300 underline-offset-4"
             >
-              {t.filters.clearAll}
+              {t.filters.clearFilters}
             </button>
             <button 
               onClick={handleApplyFilters}
               className="bg-mosque hover:bg-mosque/90 text-white px-8 py-3 rounded-lg font-medium shadow-lg shadow-mosque/30 transition-all hover:shadow-mosque/40 flex items-center gap-2 transform active:scale-95"
             >
-              {t.filters.showProperties}
+              {t.filters.applyFilters}
               <span className="material-icons text-sm">arrow_forward</span>
             </button>
           </footer>
