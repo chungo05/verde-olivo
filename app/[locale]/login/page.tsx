@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/dictionary";
 import I18nProvider from "@/components/I18nProvider";
 import LoginCard from "@/components/LoginCard";
 import type { Locale } from "@/lib/i18n";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  robots: { index: false, follow: false },
+};
 
 export default async function LoginPage({
   params,

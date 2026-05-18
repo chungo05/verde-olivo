@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import type { Metadata } from "next";
 import NavBar from "@/components/NavBar";
 import { forYouProperties, featuredProperties, newMarketProperties } from "@/lib/mock-data";
 import Map from "@/components/Map";
@@ -8,6 +9,55 @@ import { getDictionary } from "@/lib/dictionary";
 import { Locale, formatArea } from "@/lib/i18n";
 
 import { createClient } from "@/lib/supabase/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const supabase = await createClient();
+  let { data: property } = await supabase
+    .from("properties")
+    .select("title, location, price, image_url, beds, baths")
+    .or(`slug.eq.${slug},id.eq.${slug}`)
+    .eq("is_active", true)
+    .single();
+
+  if (!property) {
+    const allProperties = [...forYouProperties, ...featuredProperties, ...newMarketProperties];
+    property = allProperties.find((p) => p.slug === slug || p.id === slug) ?? null;
+  }
+
+  if (!property) {
+    return { title: "Property Not Found" };
+  }
+
+  const images: string[] = Array.isArray(property.image_url)
+    ? property.image_url
+    : [property.image_url].filter(Boolean);
+  const ogImage = images[0] ?? "/og-default.jpg";
+  const title = property.title as string;
+  const description = `${property.price} · ${property.location} · ${property.beds} beds · ${property.baths} baths`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export default async function PropertyPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = await params;

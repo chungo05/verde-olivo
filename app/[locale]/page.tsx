@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
 import ForYou from "@/components/ForYou";
@@ -7,6 +8,23 @@ import SearchResults from "@/components/SearchResults";
 import { Suspense } from "react";
 import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@/lib/i18n";
+
+export const metadata: Metadata = {
+  title: "Verde Olivo — Premium Real Estate",
+  description:
+    "Discover exclusive luxury properties. Browse curated homes, villas, and estates in the most sought-after locations.",
+  openGraph: {
+    url: "/",
+    title: "Verde Olivo — Premium Real Estate",
+    description:
+      "Discover exclusive luxury properties. Browse curated homes, villas, and estates in the most sought-after locations.",
+  },
+  twitter: {
+    title: "Verde Olivo — Premium Real Estate",
+    description:
+      "Discover exclusive luxury properties. Browse curated homes, villas, and estates in the most sought-after locations.",
+  },
+};
 
 export default async function Home({
   params,

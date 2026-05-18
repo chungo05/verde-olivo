@@ -9,8 +9,32 @@ import { Locale } from "@/lib/i18n";
 const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Verde Olivo - Premium Real Estate",
-  description: "Find your sanctuary.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://verde-olivo.com")
+  ),
+  title: {
+    default: "Verde Olivo — Premium Real Estate",
+    template: "%s | Verde Olivo",
+  },
+  description:
+    "Find your sanctuary. Exclusive premium real estate properties curated for discerning buyers.",
+  openGraph: {
+    type: "website",
+    siteName: "Verde Olivo",
+    title: "Verde Olivo — Premium Real Estate",
+    description:
+      "Find your sanctuary. Exclusive premium real estate properties curated for discerning buyers.",
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "Verde Olivo Real Estate" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Verde Olivo — Premium Real Estate",
+    description:
+      "Find your sanctuary. Exclusive premium real estate properties curated for discerning buyers.",
+    images: ["/og-default.jpg"],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default async function RootLayout({

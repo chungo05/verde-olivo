@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import "@/app/admin.css";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AdminNavbar from "@/components/admin/AdminNavbar";
 import AdminBreadcrumb from "@/components/admin/AdminBreadcrumb";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({
   children,
