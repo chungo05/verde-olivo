@@ -27,7 +27,27 @@ export async function updateSession(request: NextRequest) {
   );
 
   // IMPORTANT: refreshing session — do NOT remove this call.
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // --- Role resolution ---
+  // Fetch the user's role from the user_roles table and expose it
+  // as a response header so the root middleware can read it without
+  // making a second DB round-trip.
+  if (user) {
+    const { data: roleRow } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .single();
+
+    const role = roleRow?.role ?? "user";
+    supabaseResponse.headers.set("x-user-role", role);
+    supabaseResponse.headers.set("x-user-id", user.id);
+  } else {
+    supabaseResponse.headers.set("x-user-role", "anonymous");
+  }
 
   return supabaseResponse;
 }

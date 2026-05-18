@@ -9,7 +9,7 @@ import LanguageSelector from "./LanguageSelector";
 
 export default function NavBar() {
   const { dict, locale } = useTranslation();
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, role, signOut } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined;
@@ -92,6 +92,16 @@ export default function NavBar() {
                     <p className="text-sm font-semibold text-nordic-dark truncate">{displayName}</p>
                     <p className="text-xs text-nordic-dark/50 truncate">{user.email}</p>
                   </div>
+                  {role === "admin" && (
+                    <Link
+                      href={`/${locale}/admin`}
+                      onClick={() => setShowUserMenu(false)}
+                      className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-nordic-dark/70 hover:bg-mosque/5 hover:text-mosque transition-colors"
+                    >
+                      <span className="material-icons text-base">admin_panel_settings</span>
+                      Admin Panel
+                    </Link>
+                  )}
                   <button
                     onClick={async () => {
                       setShowUserMenu(false);

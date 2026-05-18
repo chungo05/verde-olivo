@@ -3,6 +3,8 @@ import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { i18n } from "./lib/i18n";
 
+const ADMIN_SEGMENT = "/admin";
+
 function getLocale(request: NextRequest): string {
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
   if (cookieLocale && i18n.locales.includes(cookieLocale as any)) {
@@ -20,7 +22,7 @@ function getLocale(request: NextRequest): string {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // --- 1. Supabase session refresh ---
+  // --- 1. Supabase session refresh + role resolution ---
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -44,10 +46,41 @@ export async function proxy(request: NextRequest) {
       },
     }
   );
-  // Refresh session — required for SSR auth
-  await supabase.auth.getUser();
 
-  // --- 2. i18n routing ---
+  // Refresh session — required for SSR auth
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // --- 2. Role-based guard for /[locale]/admin/* routes ---
+  const localePattern = new RegExp(
+    `^\\/(${i18n.locales.join("|")})${ADMIN_SEGMENT}(/|$)`
+  );
+
+  if (localePattern.test(pathname)) {
+    if (!user) {
+      const localePart = pathname.split("/")[1] || i18n.defaultLocale;
+      const loginUrl = new URL(`/${localePart}/login`, request.url);
+      loginUrl.searchParams.set("error", "unauthorized");
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Fetch role
+    const { data: roleRow } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .single();
+
+    if (roleRow?.role !== "admin") {
+      const localePart = pathname.split("/")[1] || i18n.defaultLocale;
+      const homeUrl = new URL(`/${localePart}`, request.url);
+      homeUrl.searchParams.set("error", "forbidden");
+      return NextResponse.redirect(homeUrl);
+    }
+  }
+
+  // --- 3. i18n routing ---
   const pathnameHasLocale = i18n.locales.some(
     (locale) =>
       pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
