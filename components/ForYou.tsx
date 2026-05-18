@@ -35,7 +35,7 @@ export default function ForYou() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-nordic-dark">
-                {translateTag(property.tag, dict)}
+                {translateTag(property.tag ?? "", dict)}
               </div>
               <button 
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all shadow-sm z-10"

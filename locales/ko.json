@@ -122,5 +122,18 @@
   "search": {
     "loadingSearch": "검색 중...",
     "loadingResults": "결과 로딩 중..."
+  },
+  "auth": {
+    "welcomeTitle": "LuxeEstate에 오신 것을 환영합니다",
+    "welcomeSubtitle": "전 세계의 독점 부동산을 시작하세요.",
+    "continueWithGoogle": "Google로 계속하기",
+    "continueWithGithub": "GitHub로 계속하기",
+    "noAccount": "계정이 없으신가요?",
+    "signUp": "회원가입",
+    "privacy": "개인정보 보호정책",
+    "terms": "서비스 이용약관",
+    "help": "도움말 센터",
+    "signOut": "로그아웃",
+    "myProfile": "내 프로필"
   }
 }

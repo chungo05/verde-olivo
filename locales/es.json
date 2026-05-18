@@ -122,5 +122,18 @@
   "search": {
     "loadingSearch": "Cargando búsqueda...",
     "loadingResults": "Cargando resultados..."
+  },
+  "auth": {
+    "welcomeTitle": "Bienvenido a LuxeEstate",
+    "welcomeSubtitle": "Accede a propiedades exclusivas en todo el mundo.",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithGithub": "Continuar con GitHub",
+    "noAccount": "¿No tienes cuenta?",
+    "signUp": "Regístrate",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "help": "Centro de Ayuda",
+    "signOut": "Cerrar sesión",
+    "myProfile": "Mi Perfil"
   }
 }

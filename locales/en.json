@@ -122,5 +122,18 @@
   "search": {
     "loadingSearch": "Loading search...",
     "loadingResults": "Loading results..."
+  },
+  "auth": {
+    "welcomeTitle": "Welcome to LuxeEstate",
+    "welcomeSubtitle": "Unlock exclusive properties worldwide.",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with GitHub",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "help": "Help Center",
+    "signOut": "Sign out",
+    "myProfile": "My Profile"
   }
 }

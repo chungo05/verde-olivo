@@ -33,7 +33,7 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
         </button>
         {property.tag && (
           <div className={`absolute bottom-3 left-3 ${tagBgClass} text-white text-[9px] font-bold px-2 py-1 rounded uppercase tracking-wider z-10`}>
-            {translateTag(property.tag, t)}
+            {translateTag(property.tag ?? "", t)}
           </div>
         )}
       </div>

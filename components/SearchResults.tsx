@@ -119,7 +119,7 @@ export default function SearchResults() {
                 />
                 {property.tag && (
                   <div className={`absolute top-4 left-4 ${property.tagColor === 'mosque' ? 'bg-mosque text-white' : 'bg-white/90 text-nordic-dark'} backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest`}>
-                    {translateTag(property.tag, t)}
+                    {translateTag(property.tag ?? "", t)}
                   </div>
                 )}
                 <button 
