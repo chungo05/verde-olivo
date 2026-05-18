@@ -13,19 +13,17 @@ export default async function AdminPage({
   const { locale } = await params;
   const supabase = await createClient();
 
-  const [{ count: propCount }, { count: userCount }] = await Promise.all([
+  const [{ count: propCount }, { data: allUsers }] = await Promise.all([
     supabase.from("properties").select("id", { count: "exact", head: true }),
-    supabase.from("user_roles").select("id", { count: "exact", head: true }),
+    supabase.rpc("get_users_with_roles"),
   ]);
 
-  const { data: roleStats } = await supabase
-    .from("user_roles")
-    .select("role");
-
   const counts = { admin: 0, agent: 0, user: 0 };
-  roleStats?.forEach((r) => {
-    counts[r.role as keyof typeof counts]++;
+  (allUsers ?? []).forEach((u: any) => {
+    const role = (u.role ?? "user") as keyof typeof counts;
+    counts[role]++;
   });
+  const userCount = (allUsers ?? []).length;
 
   const stats = [
     { label: "Total Properties", value: propCount ?? 0, icon: "home", color: "var(--accent-emerald)", href: `/${locale}/admin/properties` },

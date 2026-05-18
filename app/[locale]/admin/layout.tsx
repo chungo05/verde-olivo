@@ -1,7 +1,7 @@
 import "@/app/admin.css";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminNavbar from "@/components/admin/AdminNavbar";
 
 export default async function AdminLayout({
   children,
@@ -31,7 +31,7 @@ export default async function AdminLayout({
 
   return (
     <div className="admin-shell">
-      <AdminSidebar locale={locale} user={user} />
+      <AdminNavbar locale={locale} user={user} />
       <main className="admin-main">{children}</main>
     </div>
   );

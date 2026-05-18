@@ -17,13 +17,9 @@ export async function updateUserRole(userId: string, newRole: AppRole) {
     return { error: "Not authenticated" };
   }
 
-  const { data: callerRole } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", user.id)
-    .single();
+  const { data: callerRole } = await supabase.rpc("get_my_role");
 
-  if (callerRole?.role !== "admin") {
+  if (callerRole !== "admin") {
     return { error: "Forbidden: only admins can change roles" };
   }
 

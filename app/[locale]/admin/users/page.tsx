@@ -18,22 +18,15 @@ export type UserWithRole = {
 export default async function AdminUsersPage() {
   const supabase = await createClient();
 
-  // Fetch user_roles joined with auth.users via the admin client
-  // We use a Postgres view-style query via RPC or direct select
-  const { data: roleRows, error } = await supabase
-    .from("user_roles")
-    .select("user_id, role, created_at, updated_at");
+  const { data: authUsers, error } = await supabase.rpc("get_users_with_roles");
 
   if (error) {
     return (
-      <div className="admin-page">
+      <div className="admin-light-page">
         <p className="admin-error">Error loading users: {error.message}</p>
       </div>
     );
   }
-
-  // Enrich with auth.users metadata via the get_users_with_roles function
-  const { data: authUsers } = await supabase.rpc("get_users_with_roles");
 
   const users: UserWithRole[] = (authUsers ?? []).map((u: any) => ({
     id: u.id,
@@ -46,12 +39,12 @@ export default async function AdminUsersPage() {
   }));
 
   return (
-    <div className="admin-page">
-      <header className="admin-page-header">
-        <div>
-          <h1 className="admin-page-title">Users & Roles</h1>
-          <p className="admin-page-subtitle">{users.length} registered users</p>
-        </div>
+    <div className="admin-light-page">
+      <header style={{ marginBottom: "32px" }}>
+        <h1 className="admin-light-title">User Directory</h1>
+        <p className="admin-light-subtitle">
+          Manage user access and roles for your properties.
+        </p>
       </header>
       <UserRolesTable users={users} />
     </div>
