@@ -9,6 +9,7 @@ import {
   updateProperty,
   type PropertyFormData,
 } from "@/app/[locale]/admin/properties/actions";
+import AdminMapPreview from "@/components/admin/AdminMapPreview";
 
 type ImageEntry = {
   url: string;
@@ -666,10 +667,22 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
                 </div>
               </div>
 
-              <div className="pf-map-placeholder">
-                <span className="material-icons">map</span>
-                <span>{pf.mapPreview}</span>
-              </div>
+              {/* Map preview — shown when both coords are valid */}
+              {(() => {
+                const lat = parseFloat(latitude);
+                const lng = parseFloat(longitude);
+                const valid = !isNaN(lat) && !isNaN(lng) && latitude !== "" && longitude !== "";
+                return valid ? (
+                  <div className="pf-map-live">
+                    <AdminMapPreview latitude={lat} longitude={lng} location={location} />
+                  </div>
+                ) : (
+                  <div className="pf-map-placeholder">
+                    <span className="material-icons">location_on</span>
+                    <span>{pf.mapPreview}</span>
+                  </div>
+                );
+              })()}
             </div>
           </section>
 
