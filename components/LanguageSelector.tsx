@@ -6,7 +6,7 @@ import { useTranslation } from "./I18nProvider";
 
 const LANGUAGES = [
   { code: "en", name: "EN", flag: "🇺🇸" },
-  { code: "es", name: "ES", flag: "🇪🇸" },
+  { code: "es", name: "ES", flag: "🇲🇽" },
   { code: "ko", name: "KO", flag: "🇰🇷" },
 ];
 

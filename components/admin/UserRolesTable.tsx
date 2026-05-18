@@ -4,24 +4,29 @@ import { useState, useTransition, useEffect } from "react";
 import Image from "next/image";
 import type { UserWithRole } from "@/app/[locale]/admin/users/page";
 import { updateUserRole } from "@/app/[locale]/admin/users/actions";
+import { useTranslation } from "@/components/I18nProvider";
 
 const PAGE_SIZE = 10;
 
 type RoleFilter = "all" | "admin" | "agent" | "user";
 
-const ROLE_LABELS: Record<string, string> = {
-  admin: "Administrator",
-  agent: "Agent",
-  user:  "User",
-};
-
-const ROLE_ICONS: Record<string, string> = {
-  admin: "shield",
-  agent: "badge",
-  user:  "person",
-};
-
 export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
+  const { dict } = useTranslation();
+  const a = dict.admin;
+  const p = a.pagination;
+
+  const ROLE_LABELS: Record<string, string> = {
+    admin: a.roles.admin,
+    agent: a.roles.agent,
+    user:  a.roles.user,
+  };
+
+  const ROLE_ICONS: Record<string, string> = {
+    admin: "shield",
+    agent: "badge",
+    user:  "person",
+  };
+
   const [pending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -32,11 +37,9 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
     Object.fromEntries(users.map((u) => [u.id, u.role]))
   );
 
-  // Reset page when filters change
   useEffect(() => { setCurrentPage(1); }, [search]);
   useEffect(() => { setCurrentPage(1); }, [roleFilter]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     if (!openDropdown) return;
     const close = () => setOpenDropdown(null);
@@ -59,7 +62,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
         setLocalRoles((prev) => ({ ...prev, [userId]: prevRole }));
         showToast(`Error: ${result.error}`, false);
       } else {
-        showToast("Role updated successfully", true);
+        showToast(dict.admin.users.changeRole + " ✓", true);
       }
     });
   };
@@ -83,7 +86,6 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
 
   const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
 
-  // Clamp page if filtered list shrinks (e.g. role change removes user from filter)
   useEffect(() => {
     if (totalPages > 0 && currentPage > totalPages) {
       setCurrentPage(totalPages);
@@ -114,14 +116,14 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
           <input
             type="text"
             className="ud-search-input"
-            placeholder="Search by name, email..."
+            placeholder={a.users.search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <button className="ud-add-btn">
           <span className="material-icons">add</span>
-          Add User
+          {a.users.addUser}
         </button>
       </div>
 
@@ -133,7 +135,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
             className={`ud-tab${roleFilter === tab ? " ud-tab--active" : ""}`}
             onClick={() => setRoleFilter(tab)}
           >
-            {tab === "all" ? "All Users" : ROLE_LABELS[tab]}
+            {tab === "all" ? a.users.allTab : ROLE_LABELS[tab]}
             <span className="ud-tab-count">{roleCounts[tab]}</span>
           </button>
         ))}
@@ -141,16 +143,16 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
 
       {/* Column headers */}
       <div className="ud-col-headers">
-        <div>User Details</div>
-        <div>Role &amp; Status</div>
-        <div>Info</div>
-        <div className="ud-col-h--right">Actions</div>
+        <div>{a.users.colUserDetails}</div>
+        <div>{a.users.colRoleStatus}</div>
+        <div>{a.users.colInfo}</div>
+        <div className="ud-col-h--right">{a.users.colActions}</div>
       </div>
 
       {/* Card list */}
       <div className="ud-list">
         {pageUsers.length === 0 && (
-          <div className="ud-empty">No users found.</div>
+          <div className="ud-empty">{a.users.noUsers}</div>
         )}
         {pageUsers.map((u, i) => {
           const currentRole = (localRoles[u.id] ?? u.role) as "admin" | "agent" | "user";
@@ -180,7 +182,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                 </div>
                 <div className="ud-user-info">
                   <div className="ud-user-name">
-                    {u.full_name ?? <em className="ud-no-name">No name</em>}
+                    {u.full_name ?? <em className="ud-no-name">{a.users.noName}</em>}
                   </div>
                   <div className="ud-user-email">{u.email}</div>
                   <div className="ud-user-id">ID: #{u.id.slice(0, 8).toUpperCase()}</div>
@@ -196,14 +198,14 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                   <span className="material-icons">
                     {isActive ? "check_circle" : "remove_circle_outline"}
                   </span>
-                  {isActive ? "Active" : "Inactive"}
+                  {isActive ? a.users.statusActive : a.users.statusInactive}
                 </div>
               </div>
 
               {/* Meta info */}
               <div className="ud-meta-col">
                 <div>
-                  <div className="ud-meta-label">Registered</div>
+                  <div className="ud-meta-label">{a.users.registered}</div>
                   <div className="ud-meta-value">
                     {new Date(u.created_at).toLocaleDateString("en-US", {
                       month: "short", day: "numeric", year: "numeric",
@@ -211,13 +213,13 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                   </div>
                 </div>
                 <div>
-                  <div className="ud-meta-label">Last Login</div>
+                  <div className="ud-meta-label">{a.users.lastLogin}</div>
                   <div className="ud-meta-value">
                     {u.last_sign_in_at
                       ? new Date(u.last_sign_in_at).toLocaleDateString("en-US", {
                           month: "short", day: "numeric", year: "numeric",
                         })
-                      : "Never"}
+                      : a.users.never}
                   </div>
                 </div>
               </div>
@@ -233,7 +235,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                     onClick={() => setOpenDropdown(isOpen ? null : u.id)}
                     disabled={pending}
                   >
-                    Change Role
+                    {a.users.changeRole}
                     <span className="material-icons">
                       {isOpen ? "expand_less" : "expand_more"}
                     </span>
@@ -263,23 +265,23 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
       {/* Pagination */}
       <div className="pl-pagination" style={{ marginTop: "16px" }}>
         <span className="pl-pagination-info">
-          Showing <strong>{startItem}</strong>–<strong>{endItem}</strong> of{" "}
-          <strong>{filteredUsers.length}</strong> results
+          {p.showing} <strong>{startItem}</strong>–<strong>{endItem}</strong> {p.of}{" "}
+          <strong>{filteredUsers.length}</strong> {p.results}
         </span>
         <div className="pl-pagination-buttons">
           <button
             className="pl-page-btn"
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            onClick={() => setCurrentPage((cp) => Math.max(1, cp - 1))}
             disabled={currentPage <= 1}
           >
-            Previous
+            {p.previous}
           </button>
           <button
             className="pl-page-btn"
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            onClick={() => setCurrentPage((cp) => Math.min(totalPages, cp + 1))}
             disabled={currentPage >= totalPages || totalPages === 0}
           >
-            Next
+            {p.next}
           </button>
         </div>
       </div>

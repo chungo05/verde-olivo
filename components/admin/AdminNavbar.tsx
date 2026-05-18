@@ -6,12 +6,8 @@ import { useState, useEffect, useRef } from "react";
 import type { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import { useAuth } from "@/components/AuthProvider";
-
-const NAV_ITEMS = [
-  { label: "Overview",      href: "/admin",            exact: true },
-  { label: "Properties",    href: "/admin/properties", exact: false },
-  { label: "Users & Roles", href: "/admin/users",      exact: false },
-];
+import { useTranslation } from "@/components/I18nProvider";
+import LanguageSelector from "@/components/LanguageSelector";
 
 export default function AdminNavbar({
   locale,
@@ -23,6 +19,14 @@ export default function AdminNavbar({
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useAuth();
+  const { dict } = useTranslation();
+  const a = dict.admin;
+
+  const navItems = [
+    { label: a.nav.overview,    href: "/admin",            exact: true  },
+    { label: a.nav.properties,  href: "/admin/properties", exact: false },
+    { label: a.nav.users,       href: "/admin/users",      exact: false },
+  ];
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,11 +61,11 @@ export default function AdminNavbar({
           <Link href={`/${locale}/admin`} className="admin-navbar-brand">
             <span className="material-icons admin-navbar-brand-icon">apartment</span>
             <span className="admin-navbar-brand-text">LuxeEstate</span>
-            <span className="admin-navbar-badge">Admin</span>
+            <span className="admin-navbar-badge">{a.badge}</span>
           </Link>
 
           <div className="admin-navbar-nav">
-            {NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
               const href = `/${locale}${item.href}`;
               const active = item.exact
                 ? pathname === href
@@ -81,9 +85,11 @@ export default function AdminNavbar({
 
         {/* Right: view site + user dropdown */}
         <div className="admin-navbar-right">
-          <Link href={`/${locale}`} className="admin-navbar-icon-btn" title="View site">
+          <Link href={`/${locale}`} className="admin-navbar-icon-btn" title={a.viewSite}>
             <span className="material-icons">open_in_new</span>
           </Link>
+
+          <LanguageSelector />
 
           <div className="admin-navbar-avatar-wrap" ref={dropdownRef}>
             <button
@@ -119,7 +125,7 @@ export default function AdminNavbar({
                   onClick={handleSignOut}
                 >
                   <span className="material-icons">logout</span>
-                  Sign out
+                  {dict.auth.signOut}
                 </button>
               </div>
             )}

@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { getDictionary } from "@/lib/dictionary";
+import type { Locale } from "@/lib/i18n";
 import Link from "next/link";
 
 export const metadata = {
@@ -11,7 +13,11 @@ export default async function AdminPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const supabase = await createClient();
+  const [dict, supabase] = await Promise.all([
+    getDictionary(locale as Locale),
+    createClient(),
+  ]);
+  const a = dict.admin;
 
   const [{ count: propCount }, { data: allUsers }] = await Promise.all([
     supabase.from("properties").select("id", { count: "exact", head: true }),
@@ -26,18 +32,18 @@ export default async function AdminPage({
   const userCount = (allUsers ?? []).length;
 
   const stats = [
-    { label: "Total Properties", value: propCount ?? 0, icon: "home", color: "var(--accent-emerald)", href: `/${locale}/admin/properties` },
-    { label: "Total Users", value: userCount ?? 0, icon: "people", color: "var(--accent-indigo)", href: `/${locale}/admin/users` },
-    { label: "Admins", value: counts.admin, icon: "shield", color: "var(--accent-amber)", href: `/${locale}/admin/users` },
-    { label: "Agents", value: counts.agent, icon: "badge", color: "var(--accent-sky)", href: `/${locale}/admin/users` },
+    { label: a.dashboard.totalProperties, value: propCount ?? 0, icon: "home",    color: "var(--accent-emerald)", href: `/${locale}/admin/properties` },
+    { label: a.dashboard.totalUsers,      value: userCount,       icon: "people",  color: "var(--accent-indigo)",  href: `/${locale}/admin/users`      },
+    { label: a.dashboard.admins,          value: counts.admin,    icon: "shield",  color: "var(--accent-amber)",   href: `/${locale}/admin/users`      },
+    { label: a.dashboard.agents,          value: counts.agent,    icon: "badge",   color: "var(--accent-sky)",     href: `/${locale}/admin/users`      },
   ];
 
   return (
     <div className="admin-page">
       <header className="admin-page-header">
         <div>
-          <h1 className="admin-page-title">Dashboard</h1>
-          <p className="admin-page-subtitle">Welcome back, Administrator.</p>
+          <h1 className="admin-page-title">{a.dashboard.title}</h1>
+          <p className="admin-page-subtitle">{a.dashboard.subtitle}</p>
         </div>
       </header>
 
@@ -56,19 +62,19 @@ export default async function AdminPage({
       </section>
 
       <section className="admin-quick-links">
-        <h2 className="admin-section-title">Quick Access</h2>
+        <h2 className="admin-section-title">{a.dashboard.quickAccess}</h2>
         <div className="admin-quick-grid">
           <Link href={`/${locale}/admin/properties`} className="admin-quick-card">
             <span className="material-icons">home_work</span>
-            <span>Manage Properties</span>
+            <span>{a.dashboard.manageProperties}</span>
           </Link>
           <Link href={`/${locale}/admin/users`} className="admin-quick-card">
             <span className="material-icons">manage_accounts</span>
-            <span>Manage Users & Roles</span>
+            <span>{a.dashboard.manageUsers}</span>
           </Link>
           <Link href={`/${locale}`} className="admin-quick-card">
             <span className="material-icons">open_in_new</span>
-            <span>View Site</span>
+            <span>{a.viewSite}</span>
           </Link>
         </div>
       </section>

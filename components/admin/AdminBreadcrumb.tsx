@@ -2,29 +2,32 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const BREADCRUMB_MAP: Record<string, string> = {
-  "/admin":            "Overview",
-  "/admin/properties": "Properties",
-  "/admin/users":      "Users & Roles",
-};
+import { useTranslation } from "@/components/I18nProvider";
 
 export default function AdminBreadcrumb({ locale }: { locale: string }) {
   const pathname = usePathname();
+  const { dict } = useTranslation();
+  const a = dict.admin;
+
+  const breadcrumbMap: Record<string, string> = {
+    "/admin":            a.nav.overview,
+    "/admin/properties": a.nav.properties,
+    "/admin/users":      a.nav.users,
+  };
 
   const adminRelative = pathname.replace(`/${locale}`, "") || "/admin";
 
-  const matchedKey = Object.keys(BREADCRUMB_MAP)
+  const matchedKey = Object.keys(breadcrumbMap)
     .filter((k) => adminRelative === k || adminRelative.startsWith(k + "/"))
     .sort((a, b) => b.length - a.length)[0];
 
-  const currentLabel = matchedKey ? BREADCRUMB_MAP[matchedKey] : null;
+  const currentLabel = matchedKey ? breadcrumbMap[matchedKey] : null;
 
   return (
     <div className="admin-breadcrumb">
       <div className="admin-breadcrumb-inner">
         <Link href={`/${locale}/admin`} className="admin-breadcrumb-root">
-          Admin
+          {a.breadcrumb.root}
         </Link>
         {currentLabel && (
           <>
