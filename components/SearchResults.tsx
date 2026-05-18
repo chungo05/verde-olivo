@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getAllProperties, Property } from "@/lib/mock-data";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 import { translateTag, formatArea } from "@/lib/i18n";
 
 export default function SearchResults() {

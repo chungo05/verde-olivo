@@ -38,7 +38,7 @@ export default async function AdminPropertiesPage({
   ] = await Promise.all([
     supabase
       .from("properties")
-      .select("id, title, location, price, beds, baths, area, is_rent, created_at, image_url")
+      .select("id, slug, title, location, price, beds, baths, area, is_rent, is_sold, category, created_at, image_url")
       .order("created_at", { ascending: false })
       .range(offset, offset + PAGE_SIZE - 1),
     supabase.from("properties").select("*", { count: "exact", head: true }),
@@ -137,7 +137,7 @@ export default async function AdminPropertiesPage({
               </div>
               <div>
                 <Link
-                  href={`/${locale}/properties/${prop.id}`}
+                  href={`/${locale}/properties/${prop.slug ?? prop.id}`}
                   target="_blank"
                   className="pl-prop-title"
                 >
@@ -175,11 +175,27 @@ export default async function AdminPropertiesPage({
             </div>
 
             {/* Status */}
-            <div>
-              <span className={`pl-status-badge ${prop.is_rent ? "pl-status-badge--rent" : "pl-status-badge--sale"}`}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>
+              <span className={`pl-status-badge ${
+                prop.is_sold
+                  ? "pl-status-badge--sold"
+                  : prop.is_rent
+                  ? "pl-status-badge--rent"
+                  : "pl-status-badge--sale"
+              }`}>
                 <span className="pl-status-dot" />
-                {prop.is_rent ? a.properties.statusForRent : a.properties.statusForSale}
+                {prop.is_sold
+                  ? a.propertyForm.statusSold
+                  : prop.is_rent
+                  ? a.properties.statusForRent
+                  : a.properties.statusForSale}
               </span>
+              {prop.category === "featured" && (
+                <span className="pl-status-badge pl-status-badge--featured">
+                  <span className="material-icons" style={{ fontSize: 11 }}>star</span>
+                  Featured
+                </span>
+              )}
             </div>
 
             {/* Actions */}

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 import type { Provider } from "@supabase/supabase-js";
 
 export default function LoginCard() {

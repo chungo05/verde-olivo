@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 
 const LANGUAGES = [
   { code: "en", name: "EN", flag: "🇺🇸" },

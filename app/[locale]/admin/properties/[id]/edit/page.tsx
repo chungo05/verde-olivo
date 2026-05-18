@@ -23,7 +23,7 @@ export default async function AdminEditPropertyPage({
   const { data: property, error } = await supabase
     .from("properties")
     .select(
-      "id, title, price, is_rent, property_type, description, location, area, year_built, beds, baths, parking, amenities, latitude, longitude, image_url, category"
+      "id, title, price, is_rent, is_sold, property_type, description, location, area, year_built, beds, baths, parking, amenities, latitude, longitude, image_url, category"
     )
     .eq("id", id)
     .single();

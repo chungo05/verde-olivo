@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 
 interface FilterModalProps {
   isOpen: boolean;

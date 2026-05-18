@@ -23,6 +23,7 @@ type ExistingProperty = {
   title: string;
   price: string;
   is_rent: boolean;
+  is_sold: boolean | null;
   property_type: string | null;
   description: string | null;
   location: string;
@@ -69,7 +70,13 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
   const [title, setTitle] = useState(property?.title ?? "");
   const [price, setPrice] = useState(property?.price ?? "");
   const [status, setStatus] = useState<"for_sale" | "for_rent" | "sold">(
-    property ? (property.is_rent ? "for_rent" : "for_sale") : "for_sale"
+    property
+      ? property.is_sold
+        ? "sold"
+        : property.is_rent
+        ? "for_rent"
+        : "for_sale"
+      : "for_sale"
   );
   const [propertyType, setPropertyType] = useState(
     property?.property_type ?? "apartment"

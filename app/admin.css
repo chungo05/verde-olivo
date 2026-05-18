@@ -1556,6 +1556,21 @@
 
 .pl-status-badge--rent .pl-status-dot { background: #f59e0b; }
 
+.pl-status-badge--sold {
+  background: rgba(139, 148, 158, 0.1);
+  color: rgba(25, 50, 47, 0.5);
+  border-color: rgba(139, 148, 158, 0.2);
+}
+
+.pl-status-badge--sold .pl-status-dot { background: #8b949e; }
+
+.pl-status-badge--featured {
+  background: rgba(245, 158, 11, 0.08);
+  color: #92400e;
+  border-color: rgba(245, 158, 11, 0.25);
+  gap: 4px;
+}
+
 /* Actions column */
 .pl-actions-col {
   display: flex;

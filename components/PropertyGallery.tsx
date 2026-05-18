@@ -7,7 +7,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 
 export default function PropertyGallery({ images }: { images: string[] }) {
   const { dict: t } = useTranslation();

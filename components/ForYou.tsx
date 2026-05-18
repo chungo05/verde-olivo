@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { forYouProperties } from "@/lib/mock-data";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 import { translateTag, formatArea } from "@/lib/i18n";
 
 export default function ForYou() {

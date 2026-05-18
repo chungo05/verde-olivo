@@ -4,7 +4,7 @@ import { useState } from "react";
 import FilterModal from "./FilterModal";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 
 export default function HeroSection() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);

@@ -7,18 +7,23 @@ import PropertyGallery from "@/components/PropertyGallery";
 import { getDictionary } from "@/lib/dictionary";
 import { Locale, formatArea } from "@/lib/i18n";
 
-export function generateStaticParams() {
-  const allProperties = [...forYouProperties, ...featuredProperties, ...newMarketProperties];
-  return allProperties.map((p) => ({
-    slug: p.slug,
-  }));
-}
+import { createClient } from "@/lib/supabase/server";
 
 export default async function PropertyPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
   const { slug, locale } = await params;
   const dict = await getDictionary(locale as Locale);
-  const allProperties = [...forYouProperties, ...featuredProperties, ...newMarketProperties];
-  const property = allProperties.find((p) => p.slug === slug);
+  
+  const supabase = await createClient();
+  let { data: property } = await supabase
+    .from("properties")
+    .select("*")
+    .or(`slug.eq.${slug},id.eq.${slug}`)
+    .single();
+
+  if (!property) {
+    const allProperties = [...forYouProperties, ...featuredProperties, ...newMarketProperties];
+    property = allProperties.find((p) => p.slug === slug || p.id === slug);
+  }
 
   if (!property) {
     notFound();

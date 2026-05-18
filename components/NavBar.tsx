@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslation } from "./I18nProvider";
-import { useAuth } from "./AuthProvider";
+import { useTranslation } from "@/components/I18nProvider";
+import { useAuth } from "@/components/AuthProvider";
 import LanguageSelector from "./LanguageSelector";
 
 export default function NavBar() {

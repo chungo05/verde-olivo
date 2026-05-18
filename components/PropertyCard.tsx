@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Property } from "@/lib/mock-data";
-import { useTranslation } from "./I18nProvider";
+import { useTranslation } from "@/components/I18nProvider";
 import { formatArea, translateTag } from "@/lib/i18n";
 
 type PropertyCardProps = {
