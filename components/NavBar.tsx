@@ -78,7 +78,7 @@ export default function NavBar() {
                   className="flex items-center gap-2 text-sm font-medium text-mosque hover:text-mosque/80 transition-colors bg-mosque/10 hover:bg-mosque/20 px-3 py-1.5 rounded-lg"
                 >
                   <span className="material-icons text-base">login</span>
-                  Sign in
+                  {dict.auth.signIn}
                 </Link>
               ) : (
                 /* Loading skeleton */
