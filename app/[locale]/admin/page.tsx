@@ -4,7 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Admin Dashboard — LuxeEstate",
+  title: "Admin Dashboard — Verde Olivo",
 };
 
 export default async function AdminPage({

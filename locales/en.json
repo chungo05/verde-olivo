@@ -81,7 +81,7 @@
     "startingFrom": "Starting from",
     "withDown": "with 20% down",
     "calculateMortgage": "Calculate Mortgage",
-    "allRightsReserved": "© 2026 LuxeEstate Inc. All rights reserved.",
+    "allRightsReserved": "© 2026 Verde Olivo Inc. All rights reserved.",
     "amenitiesList": {
       "smartHome": "Smart Home System",
       "pool": "Swimming Pool",
@@ -124,7 +124,7 @@
     "loadingResults": "Loading results..."
   },
   "auth": {
-    "welcomeTitle": "Welcome to LuxeEstate",
+    "welcomeTitle": "Welcome to Verde Olivo",
     "welcomeSubtitle": "Unlock exclusive properties worldwide.",
     "continueWithGoogle": "Continue with Google",
     "continueWithGithub": "Continue with GitHub",

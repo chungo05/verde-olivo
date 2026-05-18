@@ -6,7 +6,7 @@ import Link from "next/link";
 import PropertyRowActions from "@/components/admin/PropertyRowActions";
 
 export const metadata = {
-  title: "Properties — Admin | LuxeEstate",
+  title: "Properties — Admin | Verde Olivo",
 };
 
 const PAGE_SIZE = 10;

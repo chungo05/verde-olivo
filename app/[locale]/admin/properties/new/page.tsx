@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/i18n";
 import PropertyForm from "@/components/admin/PropertyForm";
 
 export const metadata = {
-  title: "Add Property — Admin | LuxeEstate",
+  title: "Add Property — Admin | Verde Olivo",
 };
 
 export default async function AdminNewPropertyPage({

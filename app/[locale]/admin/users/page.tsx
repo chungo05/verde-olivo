@@ -4,7 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import UserRolesTable from "@/components/admin/UserRolesTable";
 
 export const metadata = {
-  title: "Users & Roles — Admin | LuxeEstate",
+  title: "Users & Roles — Admin | Verde Olivo",
 };
 
 export type UserWithRole = {

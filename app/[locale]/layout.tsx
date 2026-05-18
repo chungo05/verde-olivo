@@ -9,7 +9,7 @@ import { Locale } from "@/lib/i18n";
 const inter = Inter({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Luxe Estate - Premium Real Estate",
+  title: "Verde Olivo - Premium Real Estate",
   description: "Find your sanctuary.",
 };
 

@@ -23,7 +23,7 @@ export default function NavBar() {
             <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
               <span className="material-icons text-white text-lg">apartment</span>
             </div>
-            <span className="text-xl font-semibold tracking-tight text-nordic-dark">LuxeEstate</span>
+            <span className="text-xl font-semibold tracking-tight text-nordic-dark">Verde Olivo</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

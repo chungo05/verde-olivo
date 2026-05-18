@@ -24,7 +24,7 @@ export default function AdminSidebar({
     <aside className="admin-sidebar">
       <div className="admin-sidebar-brand">
         <span className="material-icons admin-sidebar-logo-icon">apartment</span>
-        <span className="admin-sidebar-logo-text">LuxeEstate</span>
+        <span className="admin-sidebar-logo-text">Verde Olivo</span>
         <span className="admin-sidebar-badge">Admin</span>
       </div>
 

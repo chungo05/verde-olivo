@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import PropertyForm from "@/components/admin/PropertyForm";
 
 export const metadata = {
-  title: "Edit Property — Admin | LuxeEstate",
+  title: "Edit Property — Admin | Verde Olivo",
 };
 
 export default async function AdminEditPropertyPage({

@@ -81,7 +81,7 @@
     "startingFrom": "시작가",
     "withDown": "선수금 20% 기준",
     "calculateMortgage": "모기지 계산",
-    "allRightsReserved": "© 2026 LuxeEstate Inc. 모든 권리 보유.",
+    "allRightsReserved": "© 2026 Verde Olivo Inc. 모든 권리 보유.",
     "amenitiesList": {
       "smartHome": "스마트 홈 시스템",
       "pool": "수영장",
@@ -124,7 +124,7 @@
     "loadingResults": "결과 로딩 중..."
   },
   "auth": {
-    "welcomeTitle": "LuxeEstate에 오신 것을 환영합니다",
+    "welcomeTitle": "Verde Olivo에 오신 것을 환영합니다",
     "welcomeSubtitle": "전 세계의 독점 부동산을 시작하세요.",
     "continueWithGoogle": "Google로 계속하기",
     "continueWithGithub": "GitHub로 계속하기",

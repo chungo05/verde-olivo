@@ -60,7 +60,7 @@ export default function AdminNavbar({
         <div className="admin-navbar-left">
           <Link href={`/${locale}/admin`} className="admin-navbar-brand">
             <span className="material-icons admin-navbar-brand-icon">apartment</span>
-            <span className="admin-navbar-brand-text">LuxeEstate</span>
+            <span className="admin-navbar-brand-text">Verde Olivo</span>
             <span className="admin-navbar-badge">{a.badge}</span>
           </Link>
 
