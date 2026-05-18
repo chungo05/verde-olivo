@@ -36,13 +36,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .from("user_roles")
       .upsert({ user_id: userId, role: "user" }, { onConflict: "user_id", ignoreDuplicates: true });
 
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .single();
+    // Use the SECURITY DEFINER RPC — bypasses RLS, always returns the correct role
+    const { data: role } = await supabase.rpc("get_my_role");
 
-    setRole((data?.role as AppRole) ?? "user");
+    setRole((role as AppRole) ?? "user");
   };
 
   useEffect(() => {

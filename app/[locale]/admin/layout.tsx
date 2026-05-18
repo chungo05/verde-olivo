@@ -22,13 +22,10 @@ export default async function AdminLayout({
     redirect(`/${locale}/login?error=unauthorized`);
   }
 
-  const { data: roleRow } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", user.id)
-    .single();
+  // Use the SECURITY DEFINER RPC — bypasses RLS and always returns the correct role
+  const { data: role } = await supabase.rpc("get_my_role");
 
-  if (!roleRow || roleRow.role !== "admin") {
+  if (role !== "admin") {
     redirect(`/${locale}?error=forbidden`);
   }
 

@@ -52,32 +52,18 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // --- 2. Role-based guard for /[locale]/admin/* routes ---
+  // --- 2. Authentication guard for /[locale]/admin/* routes ---
+  // Role verification is delegated to the admin layout Server Component,
+  // which has reliable access to next/headers and the user's full JWT.
   const localePattern = new RegExp(
     `^\\/(${i18n.locales.join("|")})${ADMIN_SEGMENT}(/|$)`
   );
 
-  if (localePattern.test(pathname)) {
-    if (!user) {
-      const localePart = pathname.split("/")[1] || i18n.defaultLocale;
-      const loginUrl = new URL(`/${localePart}/login`, request.url);
-      loginUrl.searchParams.set("error", "unauthorized");
-      return NextResponse.redirect(loginUrl);
-    }
-
-    // Fetch role
-    const { data: roleRow } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .single();
-
-    if (roleRow?.role !== "admin") {
-      const localePart = pathname.split("/")[1] || i18n.defaultLocale;
-      const homeUrl = new URL(`/${localePart}`, request.url);
-      homeUrl.searchParams.set("error", "forbidden");
-      return NextResponse.redirect(homeUrl);
-    }
+  if (localePattern.test(pathname) && !user) {
+    const localePart = pathname.split("/")[1] || i18n.defaultLocale;
+    const loginUrl = new URL(`/${localePart}/login`, request.url);
+    loginUrl.searchParams.set("error", "unauthorized");
+    return NextResponse.redirect(loginUrl);
   }
 
   // --- 3. i18n routing ---
