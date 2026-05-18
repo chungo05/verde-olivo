@@ -112,7 +112,7 @@ export default async function SearchResults({
 
             return (
               <Link
-                href={`/${locale}/properties/${property.slug}`}
+                href={`/${locale}/properties/${property.slug ?? property.id}`}
                 key={property.id}
                 className="block bg-white rounded-2xl overflow-hidden shadow-soft border border-nordic-dark/5 group cursor-pointer"
               >

@@ -83,6 +83,12 @@ export async function updateProperty(id: string, data: PropertyFormData) {
   const { supabase, error: authError } = await requireAdmin();
   if (!supabase) return { error: authError };
 
+  const { data: existing } = await supabase
+    .from("properties")
+    .select("slug")
+    .eq("id", id)
+    .single();
+
   const { error } = await supabase
     .from("properties")
     .update({
@@ -103,6 +109,7 @@ export async function updateProperty(id: string, data: PropertyFormData) {
       longitude: data.longitude,
       image_url: data.image_url,
       category: data.featured ? "featured" : "new_market",
+      slug: existing?.slug ?? generateSlug(data.title),
     })
     .eq("id", id);
 
