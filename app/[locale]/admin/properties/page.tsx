@@ -35,15 +35,17 @@ export default async function AdminPropertiesPage({
     { count: totalCount },
     { count: forSaleCount },
     { count: forRentCount },
+    { count: inactiveCount },
   ] = await Promise.all([
     supabase
       .from("properties")
-      .select("id, slug, title, location, price, beds, baths, area, is_rent, is_sold, category, created_at, image_url")
+      .select("id, slug, title, location, price, beds, baths, area, is_rent, is_sold, category, created_at, image_url, is_active")
       .order("created_at", { ascending: false })
       .range(offset, offset + PAGE_SIZE - 1),
     supabase.from("properties").select("*", { count: "exact", head: true }),
-    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", false),
-    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", true),
+    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", false).eq("is_active", true),
+    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", true).eq("is_active", true),
+    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_active", false),
   ]);
 
   if (error) {
@@ -62,9 +64,10 @@ export default async function AdminPropertiesPage({
   }
 
   const stats = [
-    { label: a.properties.totalListings, value: total,             icon: "apartment", cls: "pl-stat-icon--emerald" },
-    { label: a.properties.forSale,       value: forSaleCount ?? 0, icon: "home",      cls: "pl-stat-icon--green"   },
-    { label: a.properties.forRent,       value: forRentCount ?? 0, icon: "key",       cls: "pl-stat-icon--amber"   },
+    { label: a.properties.totalListings,  value: total,              icon: "apartment",    cls: "pl-stat-icon--emerald" },
+    { label: a.properties.forSale,        value: forSaleCount ?? 0,  icon: "home",         cls: "pl-stat-icon--green"   },
+    { label: a.properties.forRent,        value: forRentCount ?? 0,  icon: "key",          cls: "pl-stat-icon--amber"   },
+    { label: a.properties.statusInactive, value: inactiveCount ?? 0, icon: "visibility_off", cls: "pl-stat-icon--red"  },
   ];
 
   const pageLength = properties?.length ?? 0;
@@ -122,6 +125,7 @@ export default async function AdminPropertiesPage({
           <div
             key={prop.id}
             className={`pl-row${i === pageLength - 1 ? " pl-row--last" : ""}`}
+            style={!prop.is_active ? { opacity: 0.55 } : undefined}
           >
             {/* Property details */}
             <div className="pl-prop-details">
@@ -196,6 +200,12 @@ export default async function AdminPropertiesPage({
                   Featured
                 </span>
               )}
+              {!prop.is_active && (
+                <span className="pl-status-badge pl-status-badge--sold">
+                  <span className="material-icons" style={{ fontSize: 11 }}>visibility_off</span>
+                  {a.properties.statusInactive}
+                </span>
+              )}
             </div>
 
             {/* Actions */}
@@ -203,10 +213,14 @@ export default async function AdminPropertiesPage({
               propId={prop.id}
               locale={locale}
               editLabel={a.properties.editProperty}
-              deleteLabel={a.properties.deleteProperty}
-              confirmMsg={a.propertyForm.confirmDelete}
-              deleteSuccessMsg={a.propertyForm.deleteSuccess}
-              deleteErrorMsg={a.propertyForm.deleteError}
+              isActive={prop.is_active ?? true}
+              deactivateLabel={a.properties.deactivateProperty}
+              activateLabel={a.properties.activateProperty}
+              confirmDeactivateMsg={a.properties.confirmDeactivate}
+              deactivateSuccessMsg={a.properties.deactivateSuccess}
+              activateSuccessMsg={a.properties.activateSuccess}
+              deactivateErrorMsg={a.properties.deactivateError}
+              activateErrorMsg={a.properties.activateError}
             />
           </div>
         ))}

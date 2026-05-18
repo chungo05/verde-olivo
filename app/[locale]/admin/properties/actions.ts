@@ -112,32 +112,28 @@ export async function updateProperty(id: string, data: PropertyFormData) {
   return { ok: true };
 }
 
-export async function deleteProperty(id: string) {
+export async function deactivateProperty(id: string) {
   const { supabase, error: authError } = await requireAdmin();
   if (!supabase) return { error: authError };
 
-  // Fetch image URLs to remove from storage
-  const { data: prop } = await supabase
+  const { error } = await supabase
     .from("properties")
-    .select("image_url")
-    .eq("id", id)
-    .single();
+    .update({ is_active: false })
+    .eq("id", id);
+  if (error) return { error: error.message };
 
-  if (prop?.image_url?.length) {
-    const paths = (prop.image_url as string[])
-      .map((url: string) => {
-        const marker = "/property-images/";
-        const idx = url.indexOf(marker);
-        return idx !== -1 ? url.slice(idx + marker.length) : null;
-      })
-      .filter(Boolean) as string[];
+  revalidatePath("/[locale]/admin/properties", "page");
+  return { ok: true };
+}
 
-    if (paths.length) {
-      await supabase.storage.from("property-images").remove(paths);
-    }
-  }
+export async function reactivateProperty(id: string) {
+  const { supabase, error: authError } = await requireAdmin();
+  if (!supabase) return { error: authError };
 
-  const { error } = await supabase.from("properties").delete().eq("id", id);
+  const { error } = await supabase
+    .from("properties")
+    .update({ is_active: true })
+    .eq("id", id);
   if (error) return { error: error.message };
 
   revalidatePath("/[locale]/admin/properties", "page");

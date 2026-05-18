@@ -202,6 +202,14 @@
       "statusForSale": "En Venta",
       "editProperty": "Editar propiedad",
       "deleteProperty": "Eliminar propiedad",
+      "deactivateProperty": "Desactivar propiedad",
+      "activateProperty": "Activar propiedad",
+      "statusInactive": "Inactiva",
+      "confirmDeactivate": "¿Estás seguro de que deseas desactivar esta propiedad? Ya no aparecerá en el sitio público.",
+      "deactivateSuccess": "Propiedad desactivada correctamente.",
+      "activateSuccess": "Propiedad activada correctamente.",
+      "deactivateError": "Error al desactivar la propiedad.",
+      "activateError": "Error al activar la propiedad.",
       "errorLoading": "Error al cargar propiedades"
     },
     "pagination": {

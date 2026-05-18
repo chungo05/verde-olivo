@@ -202,6 +202,14 @@
       "statusForSale": "판매",
       "editProperty": "매물 수정",
       "deleteProperty": "매물 삭제",
+      "deactivateProperty": "매물 비활성화",
+      "activateProperty": "매물 활성화",
+      "statusInactive": "비활성",
+      "confirmDeactivate": "이 매물을 비활성화하시겠습니까? 공개 사이트에 더 이상 표시되지 않습니다.",
+      "deactivateSuccess": "매물이 성공적으로 비활성화되었습니다.",
+      "activateSuccess": "매물이 성공적으로 활성화되었습니다.",
+      "deactivateError": "매물 비활성화에 실패했습니다.",
+      "activateError": "매물 활성화에 실패했습니다.",
       "errorLoading": "매물 불러오기 오류"
     },
     "pagination": {

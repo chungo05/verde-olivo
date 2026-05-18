@@ -18,6 +18,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
     .from("properties")
     .select("*")
     .or(`slug.eq.${slug},id.eq.${slug}`)
+    .eq("is_active", true)
     .single();
 
   if (!property) {

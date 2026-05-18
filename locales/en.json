@@ -202,6 +202,14 @@
       "statusForSale": "For Sale",
       "editProperty": "Edit property",
       "deleteProperty": "Delete property",
+      "deactivateProperty": "Deactivate property",
+      "activateProperty": "Activate property",
+      "statusInactive": "Inactive",
+      "confirmDeactivate": "Are you sure you want to deactivate this property? It will no longer appear on the public site.",
+      "deactivateSuccess": "Property deactivated successfully.",
+      "activateSuccess": "Property activated successfully.",
+      "deactivateError": "Failed to deactivate property.",
+      "activateError": "Failed to activate property.",
       "errorLoading": "Error loading properties"
     },
     "pagination": {

@@ -2,26 +2,34 @@
 
 import { useTransition, useState } from "react";
 import Link from "next/link";
-import { deleteProperty } from "@/app/[locale]/admin/properties/actions";
+import { deactivateProperty, reactivateProperty } from "@/app/[locale]/admin/properties/actions";
 
 type Props = {
   propId: string;
   locale: string;
   editLabel: string;
-  deleteLabel: string;
-  confirmMsg: string;
-  deleteSuccessMsg: string;
-  deleteErrorMsg: string;
+  isActive: boolean;
+  deactivateLabel: string;
+  activateLabel: string;
+  confirmDeactivateMsg: string;
+  deactivateSuccessMsg: string;
+  activateSuccessMsg: string;
+  deactivateErrorMsg: string;
+  activateErrorMsg: string;
 };
 
 export default function PropertyRowActions({
   propId,
   locale,
   editLabel,
-  deleteLabel,
-  confirmMsg,
-  deleteSuccessMsg,
-  deleteErrorMsg,
+  isActive,
+  deactivateLabel,
+  activateLabel,
+  confirmDeactivateMsg,
+  deactivateSuccessMsg,
+  activateSuccessMsg,
+  deactivateErrorMsg,
+  activateErrorMsg,
 }: Props) {
   const [isPending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
@@ -31,14 +39,16 @@ export default function PropertyRowActions({
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleDelete = () => {
-    if (!window.confirm(confirmMsg)) return;
+  const handleToggle = () => {
+    if (isActive && !window.confirm(confirmDeactivateMsg)) return;
     startTransition(async () => {
-      const result = await deleteProperty(propId);
+      const result = isActive
+        ? await deactivateProperty(propId)
+        : await reactivateProperty(propId);
       if ("error" in result && result.error) {
-        showToast(deleteErrorMsg, false);
+        showToast(isActive ? deactivateErrorMsg : activateErrorMsg, false);
       } else {
-        showToast(deleteSuccessMsg, true);
+        showToast(isActive ? deactivateSuccessMsg : activateSuccessMsg, true);
       }
     });
   };
@@ -54,13 +64,13 @@ export default function PropertyRowActions({
           <span className="material-icons">edit</span>
         </Link>
         <button
-          className="pl-action-btn pl-action-btn--delete"
-          title={deleteLabel}
-          onClick={handleDelete}
+          className={`pl-action-btn ${isActive ? "pl-action-btn--delete" : "pl-action-btn--edit"}`}
+          title={isActive ? deactivateLabel : activateLabel}
+          onClick={handleToggle}
           disabled={isPending}
         >
           <span className="material-icons">
-            {isPending ? "hourglass_empty" : "delete_outline"}
+            {isPending ? "hourglass_empty" : isActive ? "visibility_off" : "visibility"}
           </span>
         </button>
       </div>
