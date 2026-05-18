@@ -31,7 +31,17 @@ export default async function Home({
         </Suspense>
         {isFiltering ? (
           <Suspense fallback={<div className="py-12 text-center text-nordic-muted">{dict.search.loadingResults}</div>}>
-            <SearchResults />
+            <SearchResults
+              q={resolvedSearchParams.q as string | undefined}
+              type={resolvedSearchParams.type as string | undefined}
+              location={resolvedSearchParams.location as string | undefined}
+              minPrice={resolvedSearchParams.minPrice as string | undefined}
+              maxPrice={resolvedSearchParams.maxPrice as string | undefined}
+              beds={resolvedSearchParams.beds as string | undefined}
+              baths={resolvedSearchParams.baths as string | undefined}
+              amenities={resolvedSearchParams.amenities as string | undefined}
+              locale={locale}
+            />
           </Suspense>
         ) : (
           <>
