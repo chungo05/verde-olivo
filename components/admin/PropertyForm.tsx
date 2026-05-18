@@ -10,6 +10,7 @@ import {
   type PropertyFormData,
 } from "@/app/[locale]/admin/properties/actions";
 import AdminMapPreview from "@/components/admin/AdminMapPreview";
+import ConfettiOverlay from "@/components/admin/ConfettiOverlay";
 
 type ImageEntry = {
   url: string;
@@ -126,6 +127,7 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
   // Submission state
   const [submitError, setSubmitError] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const toggleAmenity = (key: string) => {
     setAmenities((prev) => {
@@ -272,7 +274,17 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
         setSubmitError(result.error);
         return;
       }
-      router.push(`/${locale}/admin/properties`);
+
+      // Show confetti then navigate
+      setShowConfetti(true);
+
+      if (mode === "create" && "data" in result && result.data) {
+        // Redirect to the new property's edit page after confetti finishes
+        setTimeout(() => {
+          router.push(`/${locale}/admin/properties/${result.data!.id}/edit`);
+        }, 3200);
+      }
+      // edit mode: stay on page, confetti auto-hides via onDone
     });
   };
 
@@ -811,6 +823,12 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
           {isPending ? pf.saving : pf.saveProperty}
         </button>
       </div>
+
+      {/* Confetti celebration on save */}
+      <ConfettiOverlay
+        active={showConfetti}
+        onDone={() => setShowConfetti(false)}
+      />
     </div>
   );
 }
