@@ -1,22 +1,42 @@
 import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export const metadata = {
   title: "Properties — Admin | LuxeEstate",
 };
 
+const PAGE_SIZE = 10;
+
 export default async function AdminPropertiesPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const { locale } = await params;
+  const [{ locale }, { page: pageParam }] = await Promise.all([params, searchParams]);
+
+  const currentPage = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const offset = (currentPage - 1) * PAGE_SIZE;
+
   const supabase = await createClient();
 
-  const { data: properties, error } = await supabase
-    .from("properties")
-    .select("id, title, location, price, beds, baths, area, is_rent, created_at, image_url")
-    .order("created_at", { ascending: false });
+  const [
+    { data: properties, error },
+    { count: totalCount },
+    { count: forSaleCount },
+    { count: forRentCount },
+  ] = await Promise.all([
+    supabase
+      .from("properties")
+      .select("id, title, location, price, beds, baths, area, is_rent, created_at, image_url")
+      .order("created_at", { ascending: false })
+      .range(offset, offset + PAGE_SIZE - 1),
+    supabase.from("properties").select("*", { count: "exact", head: true }),
+    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", false),
+    supabase.from("properties").select("*", { count: "exact", head: true }).eq("is_rent", true),
+  ]);
 
   if (error) {
     return (
@@ -26,15 +46,23 @@ export default async function AdminPropertiesPage({
     );
   }
 
-  const total = properties?.length ?? 0;
-  const forSaleCount = properties?.filter((p) => !p.is_rent).length ?? 0;
-  const forRentCount = properties?.filter((p) => p.is_rent).length ?? 0;
+  const total      = totalCount  ?? 0;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+
+  // Redirect out-of-bounds pages
+  if (totalPages > 0 && currentPage > totalPages) {
+    redirect(`/${locale}/admin/properties?page=${totalPages}`);
+  }
 
   const stats = [
-    { label: "Total Listings", value: total,        icon: "apartment",   cls: "pl-stat-icon--emerald" },
-    { label: "For Sale",       value: forSaleCount, icon: "home",        cls: "pl-stat-icon--green"   },
-    { label: "For Rent",       value: forRentCount, icon: "key",         cls: "pl-stat-icon--amber"   },
+    { label: "Total Listings", value: total,             icon: "apartment", cls: "pl-stat-icon--emerald" },
+    { label: "For Sale",       value: forSaleCount ?? 0, icon: "home",      cls: "pl-stat-icon--green"   },
+    { label: "For Rent",       value: forRentCount ?? 0, icon: "key",       cls: "pl-stat-icon--amber"   },
   ];
+
+  const pageLength = properties?.length ?? 0;
+  const startItem  = total === 0 ? 0 : offset + 1;
+  const endItem    = Math.min(offset + PAGE_SIZE, total);
 
   return (
     <div className="admin-light-page">
@@ -81,23 +109,19 @@ export default async function AdminPropertiesPage({
           <div className="pl-col-h--right">Actions</div>
         </div>
 
-        {total === 0 && <div className="pl-empty">No properties found.</div>}
+        {pageLength === 0 && <div className="pl-empty">No properties found.</div>}
 
         {properties?.map((p, i) => (
           <div
             key={p.id}
-            className={`pl-row${i === total - 1 ? " pl-row--last" : ""}`}
+            className={`pl-row${i === pageLength - 1 ? " pl-row--last" : ""}`}
           >
             {/* Property details */}
             <div className="pl-prop-details">
               <div className="pl-prop-img-wrap">
                 {p.image_url?.[0] ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={p.image_url[0]}
-                    alt={p.title}
-                    className="pl-prop-img"
-                  />
+                  <img src={p.image_url[0]} alt={p.title} className="pl-prop-img" />
                 ) : (
                   <div className="pl-prop-img-placeholder">
                     <span className="material-icons">image</span>
@@ -132,9 +156,7 @@ export default async function AdminPropertiesPage({
                       {p.area && <span className="pl-prop-meta-sep" />}
                     </>
                   )}
-                  {p.area && (
-                    <span className="pl-prop-meta-item">{p.area}</span>
-                  )}
+                  {p.area && <span className="pl-prop-meta-item">{p.area}</span>}
                 </div>
               </div>
             </div>
@@ -168,11 +190,30 @@ export default async function AdminPropertiesPage({
         {/* Pagination */}
         <div className="pl-pagination">
           <span className="pl-pagination-info">
-            Showing <strong>{total}</strong> of <strong>{total}</strong> results
+            Showing <strong>{startItem}</strong>–<strong>{endItem}</strong> of{" "}
+            <strong>{total}</strong> results
           </span>
           <div className="pl-pagination-buttons">
-            <button className="pl-page-btn" disabled>Previous</button>
-            <button className="pl-page-btn" disabled>Next</button>
+            {currentPage <= 1 ? (
+              <span className="pl-page-btn pl-page-btn--disabled">Previous</span>
+            ) : (
+              <Link
+                href={`/${locale}/admin/properties?page=${currentPage - 1}`}
+                className="pl-page-btn"
+              >
+                Previous
+              </Link>
+            )}
+            {currentPage >= totalPages || totalPages === 0 ? (
+              <span className="pl-page-btn pl-page-btn--disabled">Next</span>
+            ) : (
+              <Link
+                href={`/${locale}/admin/properties?page=${currentPage + 1}`}
+                className="pl-page-btn"
+              >
+                Next
+              </Link>
+            )}
           </div>
         </div>
       </div>

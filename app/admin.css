@@ -171,6 +171,139 @@
 
 .admin-navbar-avatar-placeholder .material-icons { font-size: 20px !important; }
 
+/* ---- Avatar button + sign-out dropdown ------------------- */
+.admin-navbar-avatar-wrap {
+  position: relative;
+  margin-left: 4px;
+}
+
+.admin-navbar-avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.admin-navbar-avatar-btn:focus-visible {
+  outline: 2px solid #006655;
+  outline-offset: 2px;
+}
+
+.admin-navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  background: #ffffff;
+  border: 1px solid rgba(25, 50, 47, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -5px rgba(25, 50, 47, 0.12), 0 4px 8px -2px rgba(25, 50, 47, 0.06);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.admin-navbar-dropdown-header {
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-navbar-dropdown-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #19322F;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-navbar-dropdown-email {
+  font-size: 12px;
+  color: rgba(25, 50, 47, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-navbar-dropdown-divider {
+  height: 1px;
+  background: rgba(25, 50, 47, 0.07);
+}
+
+.admin-navbar-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(25, 50, 47, 0.7);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-navbar-dropdown-item .material-icons {
+  font-size: 17px !important;
+  color: rgba(25, 50, 47, 0.45);
+  transition: color 0.15s;
+}
+
+.admin-navbar-dropdown-item:hover {
+  background: rgba(225, 29, 72, 0.05);
+  color: #e11d48;
+}
+
+.admin-navbar-dropdown-item:hover .material-icons { color: #e11d48; }
+
+/* ---- Breadcrumb bar -------------------------------------- */
+.admin-breadcrumb {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(25, 50, 47, 0.06);
+}
+
+.admin-breadcrumb-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.admin-breadcrumb-root {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(25, 50, 47, 0.45);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.admin-breadcrumb-root:hover { color: #006655; }
+
+.admin-breadcrumb-sep {
+  font-size: 16px !important;
+  color: rgba(25, 50, 47, 0.25);
+  user-select: none;
+  line-height: 1;
+}
+
+.admin-breadcrumb-current {
+  font-size: 12px;
+  font-weight: 600;
+  color: #006655;
+}
+
 /* ---- Sidebar --------------------------------------------- */
 .admin-sidebar {
   position: fixed;
@@ -1489,6 +1622,21 @@
 
 .pl-page-btn:hover:not(:disabled) { background: #EEF6F6; color: #006655; }
 .pl-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.pl-page-btn--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border: 1px solid rgba(25, 50, 47, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+  color: rgba(25, 50, 47, 0.65);
+  font-family: inherit;
+  font-size: 13px;
+}
 
 /* ---- Misc ------------------------------------------------ */
 .admin-error {

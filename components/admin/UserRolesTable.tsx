@@ -5,18 +5,20 @@ import Image from "next/image";
 import type { UserWithRole } from "@/app/[locale]/admin/users/page";
 import { updateUserRole } from "@/app/[locale]/admin/users/actions";
 
+const PAGE_SIZE = 10;
+
 type RoleFilter = "all" | "admin" | "agent" | "user";
 
 const ROLE_LABELS: Record<string, string> = {
   admin: "Administrator",
   agent: "Agent",
-  user: "User",
+  user:  "User",
 };
 
 const ROLE_ICONS: Record<string, string> = {
   admin: "shield",
   agent: "badge",
-  user: "person",
+  user:  "person",
 };
 
 export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
@@ -25,9 +27,14 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [roleFilter, setRoleFilter] = useState<RoleFilter>("all");
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [localRoles, setLocalRoles] = useState<Record<string, string>>(
     Object.fromEntries(users.map((u) => [u.id, u.role]))
   );
+
+  // Reset page when filters change
+  useEffect(() => { setCurrentPage(1); }, [search]);
+  useEffect(() => { setCurrentPage(1); }, [roleFilter]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -58,7 +65,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
   };
 
   const roleCounts = {
-    all: users.length,
+    all:   users.length,
     admin: users.filter((u) => localRoles[u.id] === "admin").length,
     agent: users.filter((u) => localRoles[u.id] === "agent").length,
     user:  users.filter((u) => localRoles[u.id] === "user").length,
@@ -73,6 +80,23 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
       u.email.toLowerCase().includes(q);
     return matchesRole && matchesSearch;
   });
+
+  const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
+
+  // Clamp page if filtered list shrinks (e.g. role change removes user from filter)
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
+
+  const pageUsers = filteredUsers.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const startItem = filteredUsers.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+  const endItem   = Math.min(currentPage * PAGE_SIZE, filteredUsers.length);
 
   return (
     <>
@@ -125,10 +149,10 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
 
       {/* Card list */}
       <div className="ud-list">
-        {filteredUsers.length === 0 && (
+        {pageUsers.length === 0 && (
           <div className="ud-empty">No users found.</div>
         )}
-        {filteredUsers.map((u, i) => {
+        {pageUsers.map((u, i) => {
           const currentRole = (localRoles[u.id] ?? u.role) as "admin" | "agent" | "user";
           const isFeatured = i === 0;
           const isOpen = openDropdown === u.id;
@@ -182,9 +206,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                   <div className="ud-meta-label">Registered</div>
                   <div className="ud-meta-value">
                     {new Date(u.created_at).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
+                      month: "short", day: "numeric", year: "numeric",
                     })}
                   </div>
                 </div>
@@ -193,9 +215,7 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
                   <div className="ud-meta-value">
                     {u.last_sign_in_at
                       ? new Date(u.last_sign_in_at).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
+                          month: "short", day: "numeric", year: "numeric",
                         })
                       : "Never"}
                   </div>
@@ -238,6 +258,30 @@ export default function UserRolesTable({ users }: { users: UserWithRole[] }) {
             </div>
           );
         })}
+      </div>
+
+      {/* Pagination */}
+      <div className="pl-pagination" style={{ marginTop: "16px" }}>
+        <span className="pl-pagination-info">
+          Showing <strong>{startItem}</strong>–<strong>{endItem}</strong> of{" "}
+          <strong>{filteredUsers.length}</strong> results
+        </span>
+        <div className="pl-pagination-buttons">
+          <button
+            className="pl-page-btn"
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage <= 1}
+          >
+            Previous
+          </button>
+          <button
+            className="pl-page-btn"
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage >= totalPages || totalPages === 0}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );
