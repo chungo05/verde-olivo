@@ -5,7 +5,7 @@ import { newMarketProperties } from "@/lib/mock-data";
 import PropertyCard from "./PropertyCard";
 import { useTranslation } from "@/components/I18nProvider";
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 8;
 
 export default function NewInMarket() {
   const { dict: t } = useTranslation();
