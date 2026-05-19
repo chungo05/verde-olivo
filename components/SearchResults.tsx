@@ -30,7 +30,11 @@ export default async function SearchResults({
   const t = await getDictionary(locale);
   const supabase = await createClient();
 
-  const queryStr = q?.toLowerCase() || "";
+  const normalize = (str: string) =>
+    str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+  const queryStr = normalize(q || "");
+  const locationStr = normalize(location || "");
   const bedsNum = parseInt(beds || "0", 10);
   const bathsNum = parseInt(baths || "0", 10);
   const minPriceNum = parseInt(minPrice || "0", 10);
@@ -45,7 +49,7 @@ export default async function SearchResults({
 
   if (queryStr) {
     dbQuery = dbQuery.or(
-      `title.ilike.%${queryStr}%,location.ilike.%${queryStr}%`
+      `title_search.ilike.%${queryStr}%,location_search.ilike.%${queryStr}%`
     );
   }
 
@@ -53,8 +57,8 @@ export default async function SearchResults({
     dbQuery = dbQuery.eq("property_type", type.toLowerCase());
   }
 
-  if (location) {
-    dbQuery = dbQuery.ilike("location", `%${location}%`);
+  if (locationStr) {
+    dbQuery = dbQuery.ilike("location_search", `%${locationStr}%`);
   }
 
   if (bedsNum > 0) dbQuery = dbQuery.gte("beds", bedsNum);
