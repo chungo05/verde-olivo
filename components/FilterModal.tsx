@@ -257,7 +257,7 @@ export default function FilterModal({ isOpen, onClose }: FilterModalProps) {
                     >
                       <span className="material-icons text-base">remove</span>
                     </button>
-                    <span className="text-sm font-semibold w-6 text-center">{bedrooms === 0 ? t.filters.any : `${bedrooms}+`}</span>
+                    <span className="text-sm font-semibold min-w-16 text-center">{bedrooms === 0 ? t.filters.any : `${bedrooms}+`}</span>
                     <button 
                       onClick={() => setBedrooms(bedrooms + 1)}
                       className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-mosque hover:bg-mosque hover:text-white transition-colors"
@@ -277,7 +277,7 @@ export default function FilterModal({ isOpen, onClose }: FilterModalProps) {
                     >
                       <span className="material-icons text-base">remove</span>
                     </button>
-                    <span className="text-sm font-semibold w-6 text-center">{bathrooms === 0 ? t.filters.any : `${bathrooms}+`}</span>
+                    <span className="text-sm font-semibold min-w-16 text-center">{bathrooms === 0 ? t.filters.any : `${bathrooms}+`}</span>
                     <button 
                       onClick={() => setBathrooms(bathrooms + 1)}
                       className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-mosque hover:bg-mosque hover:text-white transition-colors"
