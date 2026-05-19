@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getDictionary } from "@/lib/dictionary";
 import { Locale } from "@/lib/i18n";
 import { translateTag, formatArea } from "@/lib/i18n";
+import FavoriteButton from "@/components/FavoriteButton";
 
 interface Props {
   q?: string;
@@ -141,14 +142,10 @@ export default async function SearchResults({
                   >
                     {translateTag(tag, t)}
                   </div>
-                  <button
-                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-nordic-dark hover:bg-mosque hover:text-white transition-all shadow-sm z-10"
-                    onClick={undefined}
-                  >
-                    <span className="material-icons text-xl">
-                      favorite_border
-                    </span>
-                  </button>
+                  <FavoriteButton
+                    propertyId={String(property.id)}
+                    className="absolute top-4 right-4 z-10"
+                  />
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-1">
