@@ -431,6 +431,7 @@ export default function PropertyForm({ mode, locale, dict, property }: Props) {
                     <option value="house">{pf.typeHouse}</option>
                     <option value="villa">{pf.typeVilla}</option>
                     <option value="commercial">{pf.typeCommercial}</option>
+                    <option value="condo">{pf.typeCondo}</option>
                   </select>
                 </div>
               </div>

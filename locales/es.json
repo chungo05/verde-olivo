@@ -258,6 +258,7 @@
       "typeHouse": "Casa",
       "typeVilla": "Villa",
       "typeCommercial": "Comercial",
+      "typeCondo": "Condominio",
       "descriptionPlaceholder": "Describe las características, el vecindario y los puntos de venta únicos...",
       "charCount": "{{count}} / 2000 caracteres",
       "galleryFormats": "JPG, PNG, WEBP",

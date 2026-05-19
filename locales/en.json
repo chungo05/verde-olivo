@@ -258,6 +258,7 @@
       "typeHouse": "House",
       "typeVilla": "Villa",
       "typeCommercial": "Commercial",
+      "typeCondo": "Condo",
       "descriptionPlaceholder": "Describe the property features, neighborhood, and unique selling points...",
       "charCount": "{{count}} / 2000 characters",
       "galleryFormats": "JPG, PNG, WEBP",

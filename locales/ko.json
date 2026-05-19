@@ -258,6 +258,7 @@
       "typeHouse": "주택",
       "typeVilla": "빌라",
       "typeCommercial": "상업용",
+      "typeCondo": "콘도",
       "descriptionPlaceholder": "매물 특징, 주변 환경, 특별한 장점을 설명해주세요...",
       "charCount": "{{count}} / 2000자",
       "galleryFormats": "JPG, PNG, WEBP",
