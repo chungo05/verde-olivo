@@ -109,15 +109,6 @@ export default function LoginCard() {
             </button>
           </div>
 
-          <p className="mt-8 text-center text-sm text-nordic-dark/70 dark:text-gray-400">
-            {dict.auth.noAccount}{" "}
-            <a
-              href="#"
-              className="font-semibold text-mosque hover:text-mosque/80 transition-colors"
-            >
-              {dict.auth.signUp}
-            </a>
-          </p>
         </div>
 
         {/* Footer links */}
