@@ -20,9 +20,7 @@ export default function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link href={`/${locale}`} className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-            <div className="w-8 h-8 rounded-lg bg-nordic-dark flex items-center justify-center">
-              <span className="material-icons text-white text-lg">apartment</span>
-            </div>
+            <Image src="/logo.png" alt="Verde Olivo Logo" width={32} height={32} className="object-contain" />
             <span className="text-xl font-semibold tracking-tight text-nordic-dark">Verde Olivo</span>
           </Link>
 

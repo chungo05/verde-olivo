@@ -23,7 +23,7 @@ export default function AdminSidebar({
   return (
     <aside className="admin-sidebar">
       <div className="admin-sidebar-brand">
-        <span className="material-icons admin-sidebar-logo-icon">apartment</span>
+        <Image src="/logo.png" alt="Verde Olivo Logo" width={32} height={32} className="admin-sidebar-logo-img" />
         <span className="admin-sidebar-logo-text">Verde Olivo</span>
         <span className="admin-sidebar-badge">Admin</span>
       </div>
