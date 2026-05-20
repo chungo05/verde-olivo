@@ -37,7 +37,7 @@ export default async function Home({
   const locale = resolvedParams.locale as Locale;
   const dict = await getDictionary(locale);
   const resolvedSearchParams = await searchParams;
-  const filterKeys = ["q", "type", "location", "minPrice", "maxPrice", "beds", "baths", "amenities"];
+  const filterKeys = ["q", "type", "location", "minPrice", "maxPrice", "beds", "baths", "amenities", "listing"];
   const isFiltering = filterKeys.some(key => resolvedSearchParams[key] !== undefined);
 
   return (
@@ -58,6 +58,7 @@ export default async function Home({
               beds={resolvedSearchParams.beds as string | undefined}
               baths={resolvedSearchParams.baths as string | undefined}
               amenities={resolvedSearchParams.amenities as string | undefined}
+              listing={resolvedSearchParams.listing as string | undefined}
               locale={locale}
             />
           </Suspense>

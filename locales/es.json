@@ -24,8 +24,8 @@
   },
   "nav": {
     "buy": "Comprar",
-    "rent": "Rentar",
-    "sell": "Vender",
+    "rent": "Renta",
+    "sell": "Venta",
     "savedHomes": "Guardados"
   },
   "hero": {
@@ -90,6 +90,45 @@
       "ev": "Carga de Vehículo Eléctrico",
       "gym": "Gimnasio Privado",
       "wineCellar": "Cava de Vinos"
+    }
+  },
+  "scheduleVisitPage": {
+    "title": "Agendar una visita",
+    "subtitle": "Elige una fecha y hora para visitar la propiedad en persona.",
+    "backToProperty": "Volver al detalle de la propiedad",
+    "forSale": "En Venta",
+    "forRent": "En Renta",
+    "hostedBy": "Con el agente",
+    "availableTimes": "Horarios disponibles",
+    "messageLabel": "Mensaje para el agente",
+    "messageOptional": "(Opcional)",
+    "messagePlaceholder": "¿Alguna pregunta o petición específica?",
+    "cancel": "Cancelar",
+    "confirmVisit": "Confirmar visita",
+    "successTitle": "¡Visita confirmada!",
+    "successMessage": "Tu visita ha sido agendada. ¡Nos vemos pronto!",
+    "days": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb",
+      "sun": "Dom"
+    },
+    "months": {
+      "january": "Enero",
+      "february": "Febrero",
+      "march": "Marzo",
+      "april": "Abril",
+      "may": "Mayo",
+      "june": "Junio",
+      "july": "Julio",
+      "august": "Agosto",
+      "september": "Septiembre",
+      "october": "Octubre",
+      "november": "Noviembre",
+      "december": "Diciembre"
     }
   },
   "filters": {

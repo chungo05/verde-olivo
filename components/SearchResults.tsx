@@ -15,6 +15,7 @@ interface Props {
   beds?: string;
   baths?: string;
   amenities?: string;
+  listing?: string;
   locale: Locale;
 }
 
@@ -26,6 +27,7 @@ export default async function SearchResults({
   maxPrice,
   beds,
   baths,
+  listing,
   locale,
 }: Props) {
   const t = await getDictionary(locale);
@@ -56,6 +58,12 @@ export default async function SearchResults({
 
   if (type && type !== "All" && type !== "Any Type") {
     dbQuery = dbQuery.eq("property_type", type.toLowerCase());
+  }
+
+  if (listing === "rent") {
+    dbQuery = dbQuery.eq("is_rent", true);
+  } else if (listing === "sale") {
+    dbQuery = dbQuery.eq("is_rent", false);
   }
 
   if (locationStr) {

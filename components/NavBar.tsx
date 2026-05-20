@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslation } from "@/components/I18nProvider";
 import { useAuth } from "@/components/AuthProvider";
 import LanguageSelector from "./LanguageSelector";
@@ -11,6 +12,8 @@ export default function NavBar() {
   const { dict, locale } = useTranslation();
   const { user, loading, role, signOut } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const searchParams = useSearchParams();
+  const listing = searchParams.get("listing");
 
   const avatarUrl = user?.user_metadata?.avatar_url as string | undefined;
   const displayName = user?.user_metadata?.full_name || user?.email || "";
@@ -25,9 +28,9 @@ export default function NavBar() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link href={`/${locale}#`} className="text-mosque font-medium text-sm border-b-2 border-mosque px-1 py-1">{dict.nav.buy}</Link>
-            <Link href={`/${locale}#`} className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all">{dict.nav.rent}</Link>
-            <Link href={`/${locale}#`} className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all">{dict.nav.sell}</Link>
+            <Link href={`/${locale}`} className={`font-medium text-sm px-1 py-1 transition-all ${!listing ? "text-mosque border-b-2 border-mosque" : "text-nordic-dark/70 hover:text-nordic-dark hover:border-b-2 hover:border-nordic-dark/20"}`}>{dict.nav.buy}</Link>
+            <Link href={`/${locale}?listing=rent`} className={`font-medium text-sm px-1 py-1 transition-all ${listing === "rent" ? "text-mosque border-b-2 border-mosque" : "text-nordic-dark/70 hover:text-nordic-dark hover:border-b-2 hover:border-nordic-dark/20"}`}>{dict.nav.rent}</Link>
+            <Link href={`/${locale}?listing=sale`} className={`font-medium text-sm px-1 py-1 transition-all ${listing === "sale" ? "text-mosque border-b-2 border-mosque" : "text-nordic-dark/70 hover:text-nordic-dark hover:border-b-2 hover:border-nordic-dark/20"}`}>{dict.nav.sell}</Link>
             <Link href={`/${locale}/favorites`} className="text-nordic-dark/70 hover:text-nordic-dark font-medium text-sm hover:border-b-2 hover:border-nordic-dark/20 px-1 py-1 transition-all">{dict.nav.savedHomes}</Link>
           </div>
 
@@ -120,9 +123,9 @@ export default function NavBar() {
       {/* Mobile menu */}
       <div className="md:hidden border-t border-nordic-dark/5 bg-background-light overflow-hidden h-0 transition-all duration-300">
         <div className="px-4 py-2 space-y-1">
-          <Link href={`/${locale}#`} className="block px-3 py-2 rounded-md text-base font-medium text-mosque bg-mosque/10">{dict.nav.buy}</Link>
-          <Link href={`/${locale}#`} className="block px-3 py-2 rounded-md text-base font-medium text-nordic-dark hover:bg-black/5">{dict.nav.rent}</Link>
-          <Link href={`/${locale}#`} className="block px-3 py-2 rounded-md text-base font-medium text-nordic-dark hover:bg-black/5">{dict.nav.sell}</Link>
+          <Link href={`/${locale}`} className={`block px-3 py-2 rounded-md text-base font-medium ${!listing ? "text-mosque bg-mosque/10" : "text-nordic-dark hover:bg-black/5"}`}>{dict.nav.buy}</Link>
+          <Link href={`/${locale}?listing=rent`} className={`block px-3 py-2 rounded-md text-base font-medium ${listing === "rent" ? "text-mosque bg-mosque/10" : "text-nordic-dark hover:bg-black/5"}`}>{dict.nav.rent}</Link>
+          <Link href={`/${locale}?listing=sale`} className={`block px-3 py-2 rounded-md text-base font-medium ${listing === "sale" ? "text-mosque bg-mosque/10" : "text-nordic-dark hover:bg-black/5"}`}>{dict.nav.sell}</Link>
           <Link href={`/${locale}/favorites`} className="block px-3 py-2 rounded-md text-base font-medium text-nordic-dark hover:bg-black/5">{dict.nav.savedHomes}</Link>
         </div>
       </div>

@@ -25,7 +25,7 @@
   "nav": {
     "buy": "Buy",
     "rent": "Rent",
-    "sell": "Sell",
+    "sell": "Sale",
     "savedHomes": "Saved Homes"
   },
   "hero": {
@@ -90,6 +90,45 @@
       "ev": "Electric Vehicle Charging",
       "gym": "Private Gym",
       "wineCellar": "Wine Cellar"
+    }
+  },
+  "scheduleVisitPage": {
+    "title": "Schedule a Viewing",
+    "subtitle": "Choose a date and time to tour the property in person.",
+    "backToProperty": "Back to property details",
+    "forSale": "For Sale",
+    "forRent": "For Rent",
+    "hostedBy": "Hosted by",
+    "availableTimes": "Available Times",
+    "messageLabel": "Message for the agent",
+    "messageOptional": "(Optional)",
+    "messagePlaceholder": "Any specific questions or requests?",
+    "cancel": "Cancel",
+    "confirmVisit": "Confirm Visit",
+    "successTitle": "Visit Confirmed!",
+    "successMessage": "Your visit has been scheduled. We'll see you soon!",
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
     }
   },
   "filters": {

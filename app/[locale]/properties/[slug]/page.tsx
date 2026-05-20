@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import NavBar from "@/components/NavBar";
 import { forYouProperties, featuredProperties, newMarketProperties } from "@/lib/mock-data";
@@ -126,10 +127,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <button className="w-full bg-mosque hover:bg-primary-hover text-white py-4 px-6 rounded-lg font-medium transition-all shadow-lg shadow-mosque/20 flex items-center justify-center gap-2 group">
+                  <Link
+                    href={`/${locale}/properties/${slug}/schedule`}
+                    className="w-full bg-mosque hover:bg-primary-hover text-white py-4 px-6 rounded-lg font-medium transition-all shadow-lg shadow-mosque/20 flex items-center justify-center gap-2 group"
+                  >
                     <span className="material-icons text-xl group-hover:scale-110 transition-transform">calendar_today</span>
                     {dict.propertyDetails.scheduleVisit}
-                  </button>
+                  </Link>
                   <button className="w-full bg-transparent border border-nordic-dark/10 hover:border-mosque text-nordic-dark/80 hover:text-mosque py-4 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2">
                     <span className="material-icons text-xl">mail_outline</span>
                     {dict.propertyDetails.contactAgent}
