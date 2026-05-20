@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Property } from "@/lib/mock-data";
 import { useTranslation } from "@/components/I18nProvider";
 import { formatArea, translateTag } from "@/lib/i18n";
+import FavoriteButton from "@/components/FavoriteButton";
 
 type PropertyCardProps = {
   property: Property;
@@ -25,12 +26,10 @@ export default function PropertyCard({ property, hiddenClass = "" }: PropertyCar
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <button 
-          className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-mosque hover:text-white transition-colors text-nordic-dark z-10"
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-        >
-          <span className="material-icons text-lg">favorite_border</span>
-        </button>
+        <FavoriteButton
+          propertyId={property.id}
+          className="absolute top-3 right-3 z-10"
+        />
         {property.tag && (
           <div className={`absolute bottom-3 left-3 ${tagBgClass} text-white text-[9px] font-bold px-2 py-1 rounded uppercase tracking-wider z-10`}>
             {translateTag(property.tag ?? "", t)}
