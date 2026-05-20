@@ -36,7 +36,12 @@ export default function SignupCard() {
     });
 
     if (signUpError) {
-      setError(signUpError.message);
+      const msg = signUpError.message.toLowerCase();
+      if (msg.includes("rate limit") || msg.includes("over_email_send_rate_limit")) {
+        setError(dict.auth.rateLimitError);
+      } else {
+        setError(dict.auth.genericError);
+      }
       setLoading(false);
       return;
     }

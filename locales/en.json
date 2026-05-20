@@ -192,6 +192,7 @@
     "passwordMismatch": "Passwords do not match.",
     "passwordTooShort": "Password must be at least 8 characters.",
     "genericError": "Something went wrong. Please try again.",
+    "rateLimitError": "Too many signup attempts. Please wait a few minutes and try again.",
     "signupTitle": "Create your account",
     "signupSubtitle": "Join Verde Olivo and access exclusive properties."
   },

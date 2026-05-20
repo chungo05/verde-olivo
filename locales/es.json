@@ -192,6 +192,7 @@
     "passwordMismatch": "Las contraseñas no coinciden.",
     "passwordTooShort": "La contraseña debe tener mínimo 8 caracteres.",
     "genericError": "Algo salió mal. Intenta de nuevo.",
+    "rateLimitError": "Demasiados intentos de registro. Espera unos minutos e intenta de nuevo.",
     "signupTitle": "Crea tu cuenta",
     "signupSubtitle": "Únete a Verde Olivo y accede a propiedades exclusivas."
   },
