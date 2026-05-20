@@ -1,40 +1,18 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@/lib/supabase/server";
 
-const supabaseClient = () => {
-  const cookieStore = cookies();
-
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
-};
-
-async function getAuthenticatedUser(supabase: ReturnType<typeof supabaseClient>) {
+async function getAuthenticatedUser() {
+  const supabase = await createClient();
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-    return { user: null, error: error?.message ?? "Not authenticated" };
+    return { supabase: null, user: null, error: error?.message ?? "Not authenticated" };
   }
 
-  return { user, error: null };
+  return { supabase, user, error: null };
 }
 
 export async function GET(request: Request) {
@@ -48,9 +26,8 @@ export async function GET(request: Request) {
     );
   }
 
-  const supabase = supabaseClient();
-  const { user, error: authError } = await getAuthenticatedUser(supabase);
-  if (authError || !user) {
+  const { supabase, user, error: authError } = await getAuthenticatedUser();
+  if (authError || !supabase || !user) {
     return NextResponse.json({ error: authError }, { status: 401 });
   }
 
@@ -79,9 +56,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const supabase = supabaseClient();
-  const { user, error: authError } = await getAuthenticatedUser(supabase);
-  if (authError || !user) {
+  const { supabase, user, error: authError } = await getAuthenticatedUser();
+  if (authError || !supabase || !user) {
     return NextResponse.json({ error: authError }, { status: 401 });
   }
 
@@ -90,7 +66,7 @@ export async function POST(request: Request) {
       user_id: user.id,
       property_id: String(propertyId),
     },
-    { onConflict: ["user_id", "property_id"] }
+    { onConflict: "user_id,property_id" }
   );
 
   if (error) {
@@ -111,9 +87,8 @@ export async function DELETE(request: Request) {
     );
   }
 
-  const supabase = supabaseClient();
-  const { user, error: authError } = await getAuthenticatedUser(supabase);
-  if (authError || !user) {
+  const { supabase, user, error: authError } = await getAuthenticatedUser();
+  if (authError || !supabase || !user) {
     return NextResponse.json({ error: authError }, { status: 401 });
   }
 

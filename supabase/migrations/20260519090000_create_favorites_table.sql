@@ -1,6 +1,3 @@
--- Create a user favorites table for saved properties.
--- This table stores favorites per authenticated user and supports RLS.
-
 CREATE TABLE IF NOT EXISTS public.favorites (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL,
@@ -16,17 +13,17 @@ ALTER TABLE public.favorites ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "authenticated users can select own favorites"
 ON public.favorites
 FOR SELECT
-TO public
+TO authenticated
 USING (auth.uid() = user_id);
 
 CREATE POLICY "authenticated users can insert own favorites"
 ON public.favorites
 FOR INSERT
-TO public
+TO authenticated
 WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "authenticated users can delete own favorites"
 ON public.favorites
 FOR DELETE
-TO public
+TO authenticated
 USING (auth.uid() = user_id);

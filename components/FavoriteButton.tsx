@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
+import { useTranslation } from "./I18nProvider";
 
 type FavoriteButtonProps = {
   propertyId: string;
@@ -13,6 +15,9 @@ export default function FavoriteButton({
   className = "",
 }: FavoriteButtonProps) {
   const { user, loading } = useAuth();
+  const { locale } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
   const [isFavorite, setIsFavorite] = useState(false);
   const [busy, setBusy] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -34,9 +39,7 @@ export default function FavoriteButton({
         const json = await response.json();
         setIsFavorite(Boolean(json?.favorited));
       })
-      .catch(() => {
-        // Keep client-side state safe on errors.
-      })
+      .catch((err) => { console.error("Failed to load favorite status:", err); })
       .finally(() => {
         if (mounted) setLoaded(true);
       });
@@ -44,7 +47,7 @@ export default function FavoriteButton({
     return () => {
       mounted = false;
     };
-  }, [propertyId, user, loading]);
+  }, [propertyId, user, loading, locale]);
 
   const handleToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -52,9 +55,7 @@ export default function FavoriteButton({
 
     if (busy || loading) return;
     if (!user) {
-      const localeMatch = window.location.pathname.match(/^\/([^\/]+)(?:\/|$)/);
-      const loginPath = localeMatch ? `/${localeMatch[1]}/login` : "/login";
-      window.location.href = loginPath;
+      router.push(`/${locale}/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
 
@@ -63,9 +64,7 @@ export default function FavoriteButton({
     try {
       const response = await fetch("/api/favorites", {
         method: isFavorite ? "DELETE" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ propertyId }),
       });
 
@@ -81,6 +80,15 @@ export default function FavoriteButton({
       setBusy(false);
     }
   };
+
+  if (!loaded) {
+    return (
+      <div
+        className={`w-10 h-10 rounded-full bg-white/90 shadow-sm ${className}`}
+        aria-hidden="true"
+      />
+    );
+  }
 
   return (
     <button
