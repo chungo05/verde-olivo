@@ -8,11 +8,15 @@ import { useTranslation } from "./I18nProvider";
 type FavoriteButtonProps = {
   propertyId: string;
   className?: string;
+  initialFavorited?: boolean;
+  onUnfavorite?: () => void;
 };
 
 export default function FavoriteButton({
   propertyId,
   className = "",
+  initialFavorited,
+  onUnfavorite,
 }: FavoriteButtonProps) {
   const { user, loading } = useAuth();
   const { locale } = useTranslation();
@@ -23,6 +27,12 @@ export default function FavoriteButton({
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    if (initialFavorited !== undefined) {
+      setIsFavorite(initialFavorited);
+      setLoaded(true);
+      return;
+    }
+
     if (!propertyId || loading) return;
 
     if (!user) {
@@ -47,7 +57,7 @@ export default function FavoriteButton({
     return () => {
       mounted = false;
     };
-  }, [propertyId, user, loading, locale]);
+  }, [propertyId, user, loading, locale, initialFavorited]);
 
   const handleToggle = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -73,7 +83,11 @@ export default function FavoriteButton({
         return;
       }
 
-      setIsFavorite((current) => !current);
+      const nextFavorited = !isFavorite;
+      setIsFavorite(nextFavorited);
+      if (!nextFavorited && onUnfavorite) {
+        onUnfavorite();
+      }
     } catch (error) {
       console.error("Favorite request error:", error);
     } finally {
