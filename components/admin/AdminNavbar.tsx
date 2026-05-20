@@ -59,7 +59,7 @@ export default function AdminNavbar({
         {/* Left: brand + nav links */}
         <div className="admin-navbar-left">
           <Link href={`/${locale}/admin`} className="admin-navbar-brand">
-            <span className="material-icons admin-navbar-brand-icon">apartment</span>
+            <Image src="/logo.png" alt="Verde Olivo Logo" width={28} height={28} className="admin-navbar-logo-img mr-2" />
             <span className="admin-navbar-brand-text">Verde Olivo</span>
             <span className="admin-navbar-badge">{a.badge}</span>
           </Link>

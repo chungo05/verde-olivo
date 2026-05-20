@@ -7,6 +7,7 @@ import Map from "@/components/Map";
 import PropertyGallery from "@/components/PropertyGallery";
 import { getDictionary } from "@/lib/dictionary";
 import { Locale, formatArea } from "@/lib/i18n";
+import DescriptionExpandable from "@/components/DescriptionExpandable";
 
 import { createClient } from "@/lib/supabase/server";
 
@@ -172,18 +173,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
               <h2 className="text-lg font-semibold mb-4 text-nordic-dark">{dict.propertyDetails.aboutThisHome}</h2>
-              <div className="prose prose-slate max-w-none text-nordic-muted leading-relaxed">
-                <p className="mb-4">
-                  {dict.propertyDetails.description1.replace('{{location}}', property.location)}
-                </p>
-                <p>
-                  {dict.propertyDetails.description2}
-                </p>
-              </div>
-              <button className="mt-4 text-mosque font-semibold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                {dict.common.readMore}
-                <span className="material-icons text-sm">arrow_forward</span>
-              </button>
+              <DescriptionExpandable
+                description1={dict.propertyDetails.description1.replace('{{location}}', property.location)}
+                description2={dict.propertyDetails.description2}
+                readMoreLabel={dict.common.readMore}
+                readLessLabel={dict.common.readLess}
+              />
             </div>
 
             <div className="bg-white p-8 rounded-xl shadow-sm border border-mosque/5">
@@ -203,21 +198,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="bg-mosque/5 p-6 rounded-xl border border-mosque/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-white rounded-full text-mosque shadow-sm">
-                  <span className="material-icons">calculate</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-nordic-dark">{dict.propertyDetails.estimatedPayment}</h3>
-                  <p className="text-sm text-nordic-muted">{dict.propertyDetails.startingFrom} <strong className="text-mosque">$5,430{dict.common.mo}</strong> {dict.propertyDetails.withDown}</p>
-                </div>
-              </div>
-              <button className="whitespace-nowrap px-4 py-2 bg-white border border-nordic-dark/10 rounded-lg text-sm font-semibold hover:border-mosque transition-colors text-nordic-dark">
-                {dict.propertyDetails.calculateMortgage}
-              </button>
             </div>
           </div>
         </div>
