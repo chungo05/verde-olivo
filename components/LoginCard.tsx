@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useTranslation } from "@/components/I18nProvider";
 import type { Provider } from "@supabase/supabase-js";
@@ -8,7 +9,25 @@ import type { Provider } from "@supabase/supabase-js";
 export default function LoginCard() {
   const { dict, locale } = useTranslation();
   const [loadingProvider, setLoadingProvider] = useState<Provider | null>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const router = useRouter();
   const supabase = createClient();
+
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailError(null);
+    setIsSigningIn(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      setEmailError(error.message);
+      setIsSigningIn(false);
+      return;
+    }
+    router.push(`/${locale}`);
+  };
 
   const handleOAuth = async (provider: Provider) => {
     setLoadingProvider(provider);
@@ -109,6 +128,72 @@ export default function LoginCard() {
             </button>
           </div>
 
+          {/* Divider */}
+          <div className="relative my-4 flex items-center gap-3">
+            <div className="flex-1 h-px bg-nordic-dark/10 dark:bg-white/10" />
+            <span className="text-xs text-nordic-dark/40 dark:text-gray-500">
+              {dict.auth.orDivider}
+            </span>
+            <div className="flex-1 h-px bg-nordic-dark/10 dark:bg-white/10" />
+          </div>
+
+          {/* Email / Password form */}
+          <form onSubmit={handleEmailSignIn} className="space-y-3">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-nordic-dark/70 dark:text-gray-300 mb-1">
+                {dict.auth.emailLabel}
+              </label>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={dict.auth.emailPlaceholder}
+                className="w-full rounded-lg border border-gray-200 dark:border-mosque/30 bg-white dark:bg-[#1a3833] px-3.5 py-2.5 text-sm text-nordic-dark dark:text-white placeholder:text-nordic-dark/30 dark:placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-mosque/40 transition"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-nordic-dark/70 dark:text-gray-300 mb-1">
+                {dict.auth.passwordLabel}
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={dict.auth.passwordPlaceholder}
+                className="w-full rounded-lg border border-gray-200 dark:border-mosque/30 bg-white dark:bg-[#1a3833] px-3.5 py-2.5 text-sm text-nordic-dark dark:text-white placeholder:text-nordic-dark/30 dark:placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-mosque/40 transition"
+              />
+            </div>
+
+            {emailError && (
+              <p role="alert" className="text-sm text-red-500 dark:text-red-400">
+                {emailError}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSigningIn || loadingProvider !== null}
+              className="w-full rounded-lg bg-mosque py-2.5 text-sm font-semibold text-white transition-all hover:bg-mosque/90 hover:shadow-soft hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            >
+              {isSigningIn ? dict.auth.signingIn : dict.auth.signInButton}
+            </button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-nordic-dark/60 dark:text-gray-400">
+            {dict.auth.noAccount}{" "}
+            <a
+              href={`/${locale}/signup`}
+              className="font-semibold text-mosque hover:text-mosque/80 transition-colors"
+            >
+              {dict.auth.signUp}
+            </a>
+          </p>
         </div>
 
         {/* Footer links */}
